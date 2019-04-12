@@ -1,0 +1,35 @@
+<table class="table table-bordered table-hover">
+	<thead class="">
+		<tr>
+			<th class="text-center" width="4%">ID</th>
+			<th class="text-center">栏目名称</th>
+			<th class="text-center" width="15%">栏目下文章数</th>
+			<th class="text-center" width="7%">前台是否显示</th>
+			<th class="text-center" width="20%">创建时间</th>
+			<th class="text-center" width="260px">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		{volist name="columns" id="column"}
+		<tr>
+			<td align="center">{$column.id}</td>
+			<td align="center">{$column.name}</td>
+			<td align="center">{$column.article_count}</td>
+			<td align="center">{if $column.show == '1'}<span style="color: lightgreen;">是</span>{else}<span style="color: red;">否</span> {/if}</td>
+			<td align="center">{$column.time|date="Y-m-d H:i:s",###}</td>
+			<td align="center">
+				<a href="javascript:void(0);" class="btn btn-primary btn-sm shiny" onclick="column_edit({$column.id})">
+					<i class="fa fa-edit"></i> 编辑
+				</a>
+				
+				<a href="javascript:void(0);" onclick="column_del({$column.id})" class="btn btn-danger btn-sm shiny">
+					<i class="fa fa-trash-o"></i> 删除
+				</a>
+			</td>
+		</tr>
+		{/volist}
+	</tbody>
+</table>
+<div id="column_page" style="text-align:right; margin-top:10px;">
+	{$page}
+</div>

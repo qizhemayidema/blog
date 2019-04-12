@@ -1,0 +1,72 @@
+{extend name="common/base"}
+{block name="title"}
+新增权限级别
+{/block}
+{block name="body"}
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">管理员</li>
+		<li class="active"><a href="javascript:void(0);" onclick="level_lst()">权限级别列表</a></li>
+		<li class="active"><a href="javascript:void(0);">新增权限级别</a></li>
+	</ul>
+</div>
+
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+
+<div class="alert alert-success fade in" id="ok_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-check"></i>
+	<span></span>
+</div>
+
+<div class="page-body" id="page-body">
+
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12 ">
+		<div class="widget">
+			<div class="widget-header bordered-bottom bordered-blue">
+				<span class="widget-caption">新增权限级别</span>
+			</div>
+			<div class="widget-body">
+				<div id="horizontal-form">
+					<form class="form-horizontal" role="form"  method="post" id="level_add_form">
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">级别名称</label>
+							<div class="col-sm-6">
+								<input class="form-control" placeholder="" name="name" value=""  type="text">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">级别等级</label>
+							<div class="col-sm-6">
+								<input class="form-control" style="width: 100px;" placeholder="" name="sort"  type="text">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填 只限正整数，1为最高，其次2，3，以此类推</p>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">级别说明</label>
+							<div class="col-sm-6">
+								<textarea name="desc" class="form-control" ></textarea>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						{:token()}
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<a href="javascript:void(0);" class="btn btn-defalut  ">新增</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{/block}

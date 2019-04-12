@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{block name="title"}{/block}</title>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/nprogress.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/style.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/font-awesome.min.css">
+<script src="__STATIC__/js/jquery-2.1.4.min.js"></script>
+<script src="__STATIC__/js/nprogress.js"></script>
+<script src="__STATIC__/js/jquery.lazyload.min.js"></script>
+<script src="__STATIC__/js/jq_pjax2.0.1.js"></script>
+<script src="__STATIC__/js/jquery.cookie.js"></script>
+<!-- <script src="__STATIC__/js/jsized.snow.js"></script>
+<script src="__STATIC__/js/jquery.snow.js"></script> -->
+</head>
+
+<body class="user-select">
+<header class="header">
+  <nav class="navbar navbar-default" id="navbar">
+    <div class="container">
+      <div class="header-topbar hidden-xs link-border">
+        <ul class="site-nav topmenu">
+            <li><a href="javascript:void(0);" class="small_column" column="tag">标签云</a></li>
+            <li><a href="javascript:void(0);" class="small_column" column="link">友情链接</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" rel="nofollow">关注本站 <span class="caret"></span></a>
+            <ul class="dropdown-menu header-topbar-dropdown-menu">
+              <li><a data-toggle="modal" data-target="#WeChat" rel="nofollow"><i class="fa fa-weixin"></i> 微信</a></li>
+            </ul>
+          </li>
+        </ul>
+          <a href="javascript:void(0);">&nbsp;</a>
+         </div>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <h1 class="logo hvr-bounce-in"><a href="" title=""><img src="__STATIC__/images/logo.png" alt="刘彪个人博客"></a></h1>
+      </div>
+      <div class="collapse navbar-collapse" id="header-navbar">
+        <ul class="nav navbar-nav navbar-right" id="column">
+          {block name="column"}
+          {/block}
+          <li><a href="">留言板</a></li>
+          <li><a href="javascript:void(0);" column="line">在线聊天</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<div id="content">
+{block name="content"}
+{/block}
+</div>
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2017-2018 <a href="">liubxw.com</a> &nbsp; <a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">京ICP备17059017号-1</a> &nbsp;</p>
+  </div>
+  <div id="gotop"><a class="gotop"></a></div>
+</footer>
+<!--微信二维码模态框-->
+<div class="modal fade user-select" id="WeChat" tabindex="-1" role="dialog" aria-labelledby="WeChatModalLabel">
+  <div class="modal-dialog" role="document" style="margin-top:120px;max-width:280px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="WeChatModalLabel" style="cursor:default;">微信扫一扫</h4>
+      </div>
+      <div class="modal-body" style="text-align:center"> <img src="__STATIC__/images/WeChat.png" alt="" style="cursor:pointer"/> </div>
+    </div>
+  </div>
+</div>
+<!--右键菜单列表-->
+<div id="rightClickMenu">
+  <ul class="list-group rightClickMenuList">
+    <li class="list-group-item disabled">欢迎访问异清轩博客</li>
+    <li class="list-group-item"><span>IP：</span>172.16.10.129</li>
+    <li class="list-group-item"><span>地址：</span>河南省郑州市</li>
+    <li class="list-group-item"><span>系统：</span>Windows10 </li>
+    <li class="list-group-item"><span>浏览器：</span>Chrome47</li>
+  </ul>
+</div>
+
+<script src="__STATIC__/js/bootstrap.min.js"></script> 
+<script src="__STATIC__/js/jquery.ias.js"></script> 
+<script src="__STATIC__/js/scripts.js"></script>
+</body>
+</html>

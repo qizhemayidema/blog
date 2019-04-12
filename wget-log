@@ -1,0 +1,39 @@
+--2018-08-19 13:29:53--  https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz
+Resolving storage.googleapis.com (storage.googleapis.com)... 172.217.160.80, 2404:6800:4008:802::2010
+Connecting to storage.googleapis.com (storage.googleapis.com)|172.217.160.80|:443... connected.
+HTTP request sent, awaiting response... Read error (Connection timed out) in headers.
+Retrying.
+
+--2018-08-19 13:44:54--  (try: 2)  https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz
+Connecting to storage.googleapis.com (storage.googleapis.com)|172.217.160.80|:443... connected.
+HTTP request sent, awaiting response... Read error (Connection timed out) in headers.
+Retrying.
+
+--2018-08-19 13:59:56--  (try: 3)  https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz
+Connecting to storage.googleapis.com (storage.googleapis.com)|172.217.160.80|:443... connected.
+HTTP request sent, awaiting response... Read error (Connection timed out) in headers.
+Retrying.
+
+--2018-08-19 14:14:59--  (try: 4)  https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz
+Connecting to storage.googleapis.com (storage.googleapis.com)|172.217.160.80|:443... connected.
+HTTP request sent, awaiting response... Read error (Connection timed out) in headers.
+Retrying.
+
+--2018-08-19 14:30:03--  (try: 5)  https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz
+Connecting to storage.googleapis.com (storage.googleapis.com)|172.217.160.80|:443... connected.
+HTTP request sent, awaiting response... Read error (Connection timed out) in headers.
+Retrying.
+
+--2018-08-19 14:45:09--  (try: 6)  https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz
+Connecting to storage.googleapis.com (storage.googleapis.com)|172.217.160.80|:443... connected.
+HTTP request sent, awaiting response... Read error (Connection timed out) in headers.
+Retrying.
+
+--2018-08-19 15:00:15--  (try: 7)  https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz
+Connecting to storage.googleapis.com (storage.googleapis.com)|172.217.160.80|:443... connected.
+HTTP request sent, awaiting response... Read error (Connection timed out) in headers.
+Retrying.
+
+--2018-08-19 15:15:22--  (try: 8)  https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz
+Connecting to storage.googleapis.com (storage.googleapis.com)|172.217.160.80|:443... connected.
+Unable to establish SSL connection.

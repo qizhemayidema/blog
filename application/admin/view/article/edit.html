@@ -1,0 +1,167 @@
+{extend name="common/base"}
+{block name="title"}
+编辑文章
+{/block}
+{block name="body"}
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">文章相关</li>
+		<li class="active"><a href="javascript:void(0);" onclick="article_lst()">文章</a></li>
+		<li class="active"><a href="javascript:void(0);">编辑文章</a></li>
+	</ul>
+</div>
+
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+
+<div class="alert alert-success fade in" id="ok_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-check"></i>
+	<span></span>
+</div>
+
+<div class="page-body" id="page-body">
+
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12 ">
+		<div class="widget">
+			<div class="widget-header bordered-bottom bordered-blue">
+				<span class="widget-caption">编辑文章</span>
+			</div>
+			<div class="widget-body">
+				<div id="horizontal-form">
+					<form class="form-horizontal" role="form"  method="post" id="article_from_edit" enctype="multipart/form-data">
+						<input type="hidden" name="id" value="{$article.id}">
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">文章标题</label>
+							<div class="col-sm-6">
+								<input class="form-control" placeholder="" name="title" value="{$article.title}"  type="text">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">文章简介</label>
+							<div class="col-sm-6">
+								<textarea name="desc">{$article.desc}</textarea>
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">文章关键字</label>
+							<div class="col-sm-6">
+								<input class="form-control" placeholder="" name="keyword" value="{$article.keyword}"  type="text">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填，关键字与关键字之间用【|】隔开，如：a|b|c</p>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">来源名称</label>
+							<div class="col-sm-6">
+								<input class="form-control" placeholder="" name="source_text" value="{$article.source_text}"  type="text">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">来源地址</label>
+							<div class="col-sm-6">
+								<input class="form-control" placeholder="如：http://www.baidu.com" name="source_url" value="{$article.source_url}"  type="text">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">文章列表图片</label>
+							<div class="col-sm-6">
+								<input name="pic_small" type="file" style="display:inline;">
+								<img src="{$article.pic_small}" height="50">
+							</div>
+							<p class="help-block col-sm-4 red">* 如不上传则不改动</p>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">首页滚动图片</label>
+							<div class="col-sm-6">
+								<input name="roll_pic" type="file" style="display:inline;">
+								<img src="{$article.roll_pic}" height="50">
+							</div>
+							<p class="help-block col-sm-4 red">* 如不上传则不改动</p>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">所属栏目</label>
+							<div class="col-sm-6">
+								<select name="column_id">
+								{volist name="columns" id="column"}
+									<option value="{$column.id}" {if $column.id == $article.column_id} selected="selected"{/if}>{$column.name}</option>
+								{/volist}
+								</select>
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">所属tag</label>
+							<div class="col-sm-6">
+								{volist name="tags" id="tag"}
+								<label style="margin-top: 5px;font-size: 15px;">
+									<input name="tag_id[]" class="colored-blue" value="{$tag.id}" type="checkbox" {volist name="article.tag_id" id="article_tag_id"} {if $article_tag_id == $tag.id} checked="checked"{/if}{/volist}>
+									<span class="text">{$tag.name}&nbsp;&nbsp;</span>
+								</label>
+								{/volist}
+							</div>
+							<p class="help-block col-sm-4 red">* 至少选1个</p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">首页滚动</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="roll" value="1" class="checkbox-slider colored-blue" type="checkbox" {if $article.roll == 1} checked="checked" {/if}>
+									<span class="text">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red">* 首页轮播文章，如果为否则忽略轮播图片的上传</p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">是否推荐</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="state" value="1" class="checkbox-slider colored-blue" type="checkbox" {if $article.state == 1} checked="checked" {/if}>
+									<span class="text">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red">* 当前栏目下的相关推荐</p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">文章内容</label>
+							<div class="col-sm-6">
+								<div id="editor">{$article.content}</div>
+								<textarea id="article_content" name="content" style="width: 100%;resize:none;height: 300px;">{$article.content}</textarea>
+							</div>
+							<script type="text/javascript">
+								var E = window.wangEditor;
+								var editor = new E('#editor');
+								var $text1 = $('#article_content');
+								editor.customConfig.onchange = function (html) {
+									// 监控变化，同步更新到 textarea
+									$text1.val(html);
+								}
+								editor.customConfig.debug=true;
+								editor.customConfig.uploadImgShowBase64 = true;
+								editor.create();
+								// 初始化 textarea 的值
+								$text1.val(editor.txt.html());
+							</script>
+						</div>
+						{:token()}
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<a href="javascript:void(0);" class="btn btn-defalut  ">修改</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{/block}

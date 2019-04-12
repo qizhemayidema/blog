@@ -1,0 +1,20 @@
+<table class="table table-bordered table-hover">
+	<thead class="">
+		<tr>
+			<th class="text-center">ID</th>
+			<th class="text-center">点击量</th>
+			<th class="text-center">日期</th>
+		</tr>
+	</thead>
+	<tbody>
+		{volist name="clicks" id="click"}
+		<tr>
+			<td align="center">{$click.id}</td>
+			<td align="center">{$click.click}</td>
+			<td align="center">{$click.time}</td>
+		</tr>
+		{/volist}
+	</tbody>
+</table>
+<div id="click_page" style="text-align:right; margin-top:10px;">{$page}</div>
+</div>

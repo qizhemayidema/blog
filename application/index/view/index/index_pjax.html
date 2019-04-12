@@ -1,0 +1,111 @@
+<section class="container">
+  <div class="content-wrap">
+    <div class="content">
+      <div class="jumbotron">
+        <h1>欢迎访问刘彪个人博客</h1>
+        <p>这里是我也不知道做什么的无名小站</p>
+      </div>
+      <div id="focusslide" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          {volist name="articles_roll" id="article_roll"}
+          <li data-target="#focusslide" data-slide-to="{$i-1}"{if $i == '1'} class="active"{/if}></li>
+          {/volist}
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          {volist name="articles_roll" id="article_roll"}
+          <div class="item {if $i == '1'}active {/if}"> 
+            <a href="javascript:void(0);" article="{$article_roll.id}" title="{$article_roll.title}"><img src="{$article_roll.roll_pic}" alt="{$article_roll.title}" class="img-responsive"></a> 
+            <div class="carousel-caption"> {$article_roll.title}</div> 
+          </div>
+          {/volist}
+        </div>
+        <a class="left carousel-control" href="#focusslide" role="button" data-slide="prev" rel="nofollow"> 
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">上一个</span> 
+        </a> 
+        <a class="right carousel-control" href="#focusslide" role="button" data-slide="next" rel="nofollow"> 
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">下一个</span> 
+        </a> 
+      </div>
+      {if $sentence}
+        <article class="excerpt-minic excerpt-minic-index">
+        <h2><span class="red">【每日一句】</span>{$sentence.sentence}</h2>
+        <p class="note">{$sentence.other_sentence}</p>
+        </article>
+      {/if}
+      <div class="title">
+        <h3>最新发布</h3>
+        <div class="more" id="tag">
+          {volist name="tags" id="tag"}
+         <a href="javascript:void(0);" tag="{$tag.id}" title="{$tag.name}">{$tag.name}</a>
+          {/volist}
+        </div>
+      </div>
+      <div id="article_lst">
+      {volist name="front_articles" id="front_article"}
+      <article class="excerpt"><a class="focus" href="javascript:void(0);" title="{$front_article.title}" article="{$front_article.id}"><img class="thumb" data-original="{$front_article.pic_small}" src="{$front_article.pic_small}" alt="{$front_article.title}"></a>
+        <header><a class="cat" href="javascript:void(0);" column="{$front_article.column_id}">{$front_article.column_name}<i></i></a>
+          <h2><a href="javascript:void(0);" title="{$front_article.title}" article="{$front_article.id}">{$front_article.title}</a></h2>
+        </header>
+        <p class="meta">
+          <time class="time"><i class="glyphicon glyphicon-time"></i> {$front_article.time|date="Y-m-d H:i:s",###}</time>
+          <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共{$front_article.click}人围观</span> <a class="comment" href="javascript:void(0);"><i class="glyphicon glyphicon-comment"></i> {$front_article.comment_count}个不明物体</a></p>
+        <p class="note">{$front_article.desc}</p>
+      </article>
+      {/volist}
+      </div>
+      <div class="loader"><div class="pagination-loading"><div class="loader_img_box" style="display: none;"><img src="__STATIC__/images/loading.gif"></div></div></div>
+      <div id="more_article"><div class="pagination">{if count($front_articles) < 5}<button class="btn btn-default btn-search" disabled="disabled">没有更多啦~</button>{else}<button class="btn btn-default btn-search">查看更多</button>{/if}</div></div>
+    </div>
+  </div>
+  <aside class="sidebar">
+    <div class="fixed">
+      <div class="widget widget-tabs">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab" data-toggle="tab">网站公告</a></li>
+          <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">联系站长</a></li>
+        </ul>
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane notice active" id="notice">
+            <ul>
+              {volist name="notices_top" id="notice_top"}
+              <li>
+                <time datetime="{$notice_top.time|date="m-d",###}"><span style="color: red;">【置顶】</span>{$notice_top.time|date="m-d",###}</time>
+                <a href="javascript:void(0);" title="{$notice_top.text}">{$notice_top.text}</a>
+              </li>
+              {/volist}
+              {volist name="notices" id="notice"}
+              <li>
+                <time datetime="{$notice.time|date="m-d",###}">{$notice.time|date="m-d",###}</time>
+                <a href="javascript:void(0);" title="{$notice.text}">{$notice.text}</a>
+              </li>
+              {/volist}
+            </ul>
+          </div>
+          <div role="tabpanel" class="tab-pane contact" id="contact">
+            <h2>Email:<br />
+              <a href="mailto:haimeixie" data-toggle="tooltip" data-placement="bottom" title="haimeixie">haimeixie</a></h2>
+          </div>
+        </div>
+      </div>
+      <div class="widget widget_search">
+        <form class="navbar-form" action="javascript:search();" id="search_form">
+          <div class="input-group">
+            <input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字" maxlength="15" autocomplete="on">
+            <span class="input-group-btn">
+            <button class="btn btn-default btn-search" name="search">搜索</button>
+            </span> </div>
+        </form>
+      </div>
+    </div>
+    <div class="widget widget_hot" id="article_hot">
+      <h3>热门文章</h3>
+      <ul>
+        {volist name="articles_hot" id="article_hot"}
+        <li>
+          <a href="javascript:void(0);" article="{$article_hot.id}" title="{$article_hot.title}"><span class="thumbnail"><img class="thumb" data-original="{$article_hot.pic_small}" src="{$article_hot.pic_small}" alt="{$article_hot.title}"></span><span class="text">{$article_hot.title}</span><span class="muted"><i class="glyphicon glyphicon-time"></i> {$article_hot.time|date="Y-m-d",###} </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> {$article_hot.click}</span></a>
+        </li>
+        {/volist}
+      </ul>
+    </div>
+  </aside>
+</section>

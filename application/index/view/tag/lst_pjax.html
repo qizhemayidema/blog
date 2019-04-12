@@ -1,0 +1,11 @@
+<section class="container container-page">
+  {include file="common/small_column"}
+  <div class="content">
+    <header class="article-header"><h1 class="article-title">标签云</h1></header>
+    <ul class="plinks ptags" id="tag">
+      {volist name="tags" id="tag" empty="暂时没有标签"}
+      <li><a href="javascript:void(0);" title="{$tag.name}" tag="{$tag.id}">{$tag.name} <span class="badge">{$tag.article_count}</span></a></li>
+      {/volist}
+    </ul>
+  </div>
+</section>

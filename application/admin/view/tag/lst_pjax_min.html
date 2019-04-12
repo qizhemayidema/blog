@@ -1,0 +1,63 @@
+<table class="table table-bordered table-hover">
+	<thead class="">
+		<tr>
+			<th class="text-center" width="4%">
+				<label style="padding: 0px;margin: 0px;">
+					<input name="lst_form_checkbox_all" value="1" class="colored-black" type="checkbox">
+					<span class="text"></span>
+				</label>
+			</th>
+			<th class="text-center" width="4%">ID</th>
+			<th class="text-center">tag名称</th>
+			<th class="text-center" width="15%">标签下文章数</th>
+			<th class="text-center" width="20%">创建时间</th>
+			<th class="text-center" width="260px">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		{volist name="tags" id="tag"}
+		<tr>
+			<td align="center" class="lst_form_checkbox">
+				<label style="padding: 0px;margin: 0px;">
+					<input name="lst_form_checkbox_one[]" value="{$tag.id}" class="colored-black" type="checkbox">
+					<span class="text"></span>
+				</label>
+			</td>
+			<td align="center">{$tag.id}</td>
+			<td align="center">{$tag.name}</td>
+			<td align="center">{$tag.article_count}</td>
+			<td align="center">{$tag.time|date="Y-m-d H:i:s",###}</td>
+			<td align="center">
+				<a href="javascript:void(0);" class="btn btn-primary btn-sm shiny" onclick="tag_edit({$tag.id})">
+					<i class="fa fa-edit"></i> 编辑
+				</a>
+				
+				<a href="javascript:void(0);" onclick="tag_del({$tag.id})" class="btn btn-danger btn-sm shiny">
+					<i class="fa fa-trash-o"></i> 删除
+				</a>
+				<div class="btn-group">
+					<a class="btn btn-primary shiny btn-sm" href="javascript:void(0);">更多</a>
+					<a class="btn btn-primary dropdown-toggle shiny btn-sm" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+					<ul class="dropdown-menu dropdown-primary">
+						<li>
+							<a href="javascript:void(0);" onclick="find_tag_article({$tag.id})">查看该tag下的文章</a>
+						</li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		{/volist}
+	</tbody>
+</table>
+<div class="btn-group" style="display:inline-block;margin-top: 10px;float:left;">
+	<span class="input-icon">
+		<input type="text" class="form-control input-sm" id="tag_name" placeholder="根据tag名称查找" onblur="find_tag_name()">
+		<i class="searchicon fa fa-search"></i>
+	</span>
+</div>
+<div id="lst_more_button" style="display: none;">
+	<div class="btn-group" style="display:inline-block;margin-top: 10px;margin-left: 10px;float:left;">
+		<a href="javascript:void(0);" class="current btn btn-danger" style="height: 30px;margin-left: 10px;" onclick="tag_more_del()">批量删除</a>
+	</div>
+</div>
+<div id="tag_page" style="text-align:right; margin-top:10px;">{$page}</div>

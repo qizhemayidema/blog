@@ -1,0 +1,70 @@
+<div class="page-body" style="display: none;" id="move_creator">
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="widget">
+			<div class="widget-header bordered-bottom bordered-blue">
+				<span class="widget-caption">转移有关创建者</span>
+				<button class="close" style="width: 35px;height: 30px;">×</button>
+			</div>
+			<div class="widget-body">
+				<div id="horizontal-form">
+					<form class="form-horizontal" role="form"  method="post" id="admin_del_move_creator" action="{:url('Admin/move_del')}">
+						<input type="hidden" name="move_admin_id" value="{$move_admin_id}">
+						{if condition="($per_lst)"}
+						<h1>权限表转移</h1>
+						<hr>
+						{volist name="per_lst" id="per"}
+							<div class="form-group">
+								<label class="col-sm-4 control-label no-padding-right">【{$per.name}】的创建者转移到</label>
+								<div class="col-sm-6">
+									<select name="move_permission_id[{$per.id}]">
+										{volist name="per_admins" id="per_admin"}
+										<option value="{$per_admin.id}">{$per_admin.username}</option>
+										{/volist}
+									</select>
+									管理员下&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="admin_move_del_creator_button_per">
+										<a href="javascript:void(0);" class="btn-blue" style="padding: 8px;color: white;text-decoration:none;display: inline-block;" onclick="move_find_per({$per.id})">查看该权限的详细信息</a>
+										<a href="javascript:void(0);" class="btn-danger" permission_id="{$per.id}" style="padding: 8px;color: white;text-decoration:none;display: inline-block;">删除此条权限</a>
+									</span>
+								</div>
+								<p class="help-block col-sm-4 "></p>
+							</div>
+						{/volist}
+						{/if}
+						{if condition="($level_lst)"}
+						<h1>级别表转移</h1>
+						<hr>
+						{volist name="level_lst" id="lv"}
+							<div class="form-group">
+								<label class="col-sm-4 control-label no-padding-right">【{$lv.name}】的创建者转移到</label>
+								<div class="col-sm-6">
+									<select name="move_level_id[{$lv.id}]">
+										{volist name="level_admins" id="level_admin"}
+										<option value="{$level_admin.id}">{$level_admin.username}</option>
+										{/volist}
+									</select>
+									管理员下&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="admin_move_del_creator_button_level">
+										<a href="javascript:void(0);" class="btn-blue" level_id="{$lv.id}" style="padding: 8px;color: white;text-decoration:none;display: inline-block;">查看该级别的详细信息</a>
+										<a href="javascript:void(0);" class="btn-danger" level_id="{$lv.id}" style="padding: 8px;color: white;text-decoration:none;display: inline-block;">删除此条级别</a>
+									</span>
+								</div>
+								<p class="help-block col-sm-4 "></p>
+							</div>
+						{/volist}
+						{/if}
+						{:token()}
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-10">
+								<a href="javascript:void(0);" class="btn btn-defalut  ">转移并删除管理员</a>
+							</div>
+						</div>
+						<input type="submit" value="提交">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

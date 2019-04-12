@@ -1,0 +1,60 @@
+<table class="table table-bordered table-hover">
+	<thead class="">
+		<tr>
+			<th class="text-center" width="4%">
+				<label style="padding: 0px;margin: 0px;">
+					<input name="lst_form_checkbox_all" value="1" class="colored-black" type="checkbox">
+					<span class="text"></span>
+				</label>
+			</th>
+			<th class="text-center" width="4%">ID</th>
+			<th class="text-center" width="12%">权限名称</th>
+			<th class="text-center" width="15%">创建者</th>
+			<th class="text-center" width="18%">创建时间</th>
+			<th class="text-center" width="15%">最后修改者</th>
+			<th class="text-center" width="18%">最后修改时间</th>
+			<th class="text-center" width="14%">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		{volist name="pers" id="per"}
+		<tr>
+			<td align="center" class="lst_form_checkbox">
+				<label style="padding: 0px;margin: 0px;">
+					<input name="lst_form_checkbox_one[]" value="{$per.id}" class="colored-black" type="checkbox">
+					<span class="text"></span>
+				</label>
+			</td>
+			<td align="center">{$per.id}</td>
+			<td align="center">{$per.name}</td>
+			<td align="center">{$per.creator}</td>
+			<td align="center">{$per.creat_time|date="Y-m-d H:i:s",###}</td>
+			<td align="center">{$per.reviser}</td>
+			<td align="center">{$per.revise_time|date="Y-m-d H:i:s",###}</td>
+			<td align="center">
+				<a href="javascript:void(0);" class="btn btn-primary btn-sm shiny" onclick="permission_edit({$per.id})">
+					<i class="fa fa-edit"></i> 编辑
+				</a>
+				
+				<a href="javascript:void(0);" onclick="permission_del({$per.id})" class="btn btn-danger btn-sm shiny">
+					<i class="fa fa-trash-o"></i> 删除
+				</a>
+			</td>
+		</tr>
+		{/volist}
+	</tbody>
+</table>
+<div class="btn-group" style="display:inline-block;margin-top: 10px;float:left;">
+	<span class="input-icon">
+		<input type="text" class="form-control input-sm" id="permission_name" placeholder="根据权限名称查找" onblur="find_permission_name()">
+		<i class="searchicon fa fa-search"></i>
+	</span>
+</div>
+<div id="lst_more_button" style="display: none;">
+	<div class="btn-group" style="display:inline-block;margin-top: 10px;margin-left: 10px;float:left;">
+		<a href="javascript:void(0);" class="current btn btn-purple " style="height: 30px;" onclick="permission_more_move_creator()">批量转移创建者</a>
+		<a href="javascript:void(0);" class="current btn btn-danger" style="height: 30px;margin-left: 10px;" onclick="permission_more_del()">批量删除</a>
+	</div>
+</div>
+<div id="permission_page" style="text-align:right; margin-top:10px;">{$page}</div>
+

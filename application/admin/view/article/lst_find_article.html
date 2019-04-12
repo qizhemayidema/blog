@@ -1,0 +1,67 @@
+<div class="article_lst_find" style="display: none;">
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header  with-footer">
+				<span class="widget-caption">【{$text}】的搜索结果</span>
+				<div class="widget-buttons">
+					<a href="javascript:void(0)" data-toggle="dispose"><i class="fa fa-times"></i></a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="flip-scroll">
+					<table class="table table-bordered table-hover">
+						<thead class="flip-content bordered-palegreen">
+							<tr>
+								<th class="text-center" width="4%">ID</th>
+								<th class="text-center">标题</th>
+								<th class="text-center" width="6%">是否推荐</th>
+								<th class="text-center" width="6%">是否轮播</th>
+								<th class="text-center" width="6%">文章图片</th>
+								<th class="text-center" width="6%">所属栏目</th>
+								<th class="text-center" width="6%">点击量</th>
+								<th class="text-center" width="6%">评论数</th>
+								<th class="text-center" width="20%">创建时间</th>
+								<th class="text-center" width="14%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{volist name="articles" id="article" empty="暂无数据"}
+							<tr>
+								<td align="center">{$article.id}</td>
+								<td align="center">{$article.title}</td>
+								<td align="center">{if $article.state == 1}<span style="color: lightgreen;">是</span>{else}<span style="color: red;">否</span>{/if}</td>
+								<td align="center">{if $article.roll == 1}<span style="color: lightgreen;">是</span>{else}<span style="color: red;">否</span>{/if}</td>
+								<td align="center"><img src="{$article.pic_small}" style="width: 50px;height: 50px;"></td>
+								<td align="center">{$article.column_name}</td>
+								<td align="center">{$article.click}</td>
+								<td align="center">{$article.comment_count}</td>
+								<td align="center">{$article.time|date="Y-m-d H:i:s",###}</td>
+								<td align="center">
+									<a href="javascript:void(0);" class="btn btn-primary btn-sm shiny" onclick="article_edit({$article.id})">
+										<i class="fa fa-edit"></i> 编辑
+									</a>
+									
+									<a href="javascript:void(0);" onclick="article_del({$article.id})" class="btn btn-danger btn-sm shiny">
+										<i class="fa fa-trash-o"></i> 删除
+									</a>
+									<div class="btn-group">
+										<a class="btn btn-primary shiny btn-sm" href="javascript:void(0);">更多</a>
+										<a class="btn btn-primary dropdown-toggle shiny btn-sm" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+										<ul class="dropdown-menu dropdown-primary">
+											<li>
+												<a href="javascript:void(0);" onclick="see_article_comment({$article.id})">查看该文章下的评论</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							{/volist}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

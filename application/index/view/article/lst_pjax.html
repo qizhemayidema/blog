@@ -1,0 +1,145 @@
+<div id="article_content">
+<section class="container">
+  <div class="content-wrap">
+    <div class="content">
+      <header class="article-header">
+        <h1 class="article-title"><a href="javascript:void(0);">{$article.title}</a></h1>
+        <div class="article-meta"> 
+          <span class="item article-meta-time">
+          <time class="time" data-toggle="tooltip" data-placement="bottom" title="时间：{$article.time|date='Y-m-d H:i:s',###}"><i class="glyphicon glyphicon-time"></i> {$article.time|date='Y-m-d H:i:s',###}</time>
+          </span> 
+          <a href="{$article.source_url}" target="_brank"><span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title="来源：{$article.source_text}"><i class="glyphicon glyphicon-globe"></i> {$article.source_text}</span> </a>
+          <span class="item article-meta-category" data-toggle="tooltip" data-placement="bottom" title="栏目：{$article.column_name}"><i class="glyphicon glyphicon-list"></i> <a href="javascript:void(0);" column="{$article.column_id}" title="{$article.column_name}" id="article_column">{$article.column_name}</a></span> 
+          <span class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="查看：{$article.click}"><i class="glyphicon glyphicon-eye-open"></i> 共{$article.click}人围观</span> 
+          <span class="item article-meta-comment" data-toggle="tooltip" data-placement="bottom" title="评论：{$article.comment_count}"><i class="glyphicon glyphicon-comment"></i> {$article.comment_count}个不明物体</span> 
+        </div>
+      </header>
+      <article class="article-content">
+        {$article.content}
+      </article>
+      <div class="article-tags" id="tag">标签：
+      {volist name="$article.tag" id="tag_one"}
+      <a href="javascript:void(0);" tag="{$tag_one.id}" title="{$tag_one.name}">{$tag_one.name}</a>
+      {/volist}
+      </div>
+      <div class="relates" id="state">
+        <div class="title">
+          <h3>相关推荐</h3>
+        </div>
+        <ul>
+          {volist name="state_articles" id="state_article" empty="暂无更多"}
+          <li><a href="javascript:void(0);" article="{$state_article.id}" title="{$state_article.title}">{$state_article.title}</a></li>
+          {/volist}
+        </ul>
+      </div>
+      <div class="title" id="comment">
+        <h3>评论 <small>抢沙发</small></h3>
+      </div>
+      <!--评论框-->
+      <div id="article_comment_body">
+        <div id="respond">
+          <hr id="article_comment_hr" style="display: none;">
+          <form method="post" id="comment-form">
+            <div class="comment">
+              <input type="hidden" name="article_id" value="{$article.id}">
+              <input type="hidden" name="p_id" value="0">
+              <input type="hidden" name="top_id">
+              <input type="hidden" name="reply_name">
+              <input type="hidden" name="reply_link_url">
+              {:token()}
+              <label style="width: 100%;margin-bottom: 10px;">
+                <input type="text" name="name" class="form-control" style="width:210px;height: 33px;margin-right:1%;margin-bottom: 10px;display: inline-block;" placeholder="昵称(必填)：">
+                <input type="text" name="link_url" class="form-control" style="width:210px;height: 33px;margin-right:1%;margin-bottom: 10px;display: inline-block;" placeholder="您的网站：">
+                <input class="form-control" placeholder="验证码" name="code" style="width:80px;height: 33px;margin-bottom: 10px;display: inline-block;" type="text" />
+                <img  style="width: 120px;display: inline-block;" src="{:captcha_src()}" alt="captcha" onclick="this.src='{:captcha_src()}?'+Math.random();" />
+              </label>
+              <div class="comment-box">
+                <textarea placeholder="路过了，不留下脚印吗" name="comment" id="comment-textarea" cols="100%" rows="3" tabindex="1" ></textarea>
+                <div class="comment-ctrl">
+                  <div class="comment-prompt"> <i class="fa fa-spin fa-circle-o-notch"></i> <span class="comment-prompt-text"></span> </div>
+                  <button type="submit" name="comment-submit" id="comment-submit" tabindex="5" articleid="1">评论</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!--/评论框-->
+      <div id="postcomments">
+        <ol class="commentlist">
+          {volist name="comments" id="comment" key="k"}
+          <li class="comment-content" style="border: 1px solid #ccd4d9;margin-bottom: 15px;border-radius: 4px;box-shadow: 0px 1px 0px #888888;">
+
+            <div class="reply" style="margin-left: 30px;">
+              <div class="comment-avatar"><img class="avatar" src="__STATIC__/images/icon.png" alt="{$comment.name}" /></div>
+              <div class="comment-main">
+                <p>
+                  <span class="comment-f">#{$comment_count - 5 * $page_count +5 -$k +1}</span>
+                  <span class="address"><a href="{if $comment.link_url != ''}{$comment.link_url}{else}javascript:void(0);{/if}" target="_brank">{$comment.name}</a></span>
+                  <span class="time">({$comment.time|date="Y-m-d",###})</span>
+                  <span><a href="javascript:void(0);" class="callback" p_id="{$comment.id}" top_id="{$comment.id}" reply_name="{$comment.name}" reply_link_url="{$comment.link_url}">回复</a></span>
+                </p>
+                <p class="comment_comment" style="margin-left: 5px;margin-bottom: 10px;">{$comment.comment}</p>
+              </div>
+            </div>
+            {if !empty($comment['child'])}
+              {volist name="comment.child" id="comment_child"}
+                <div class="reply" style="margin-bottom: 20px;">
+                <div class="comment-main" style="padding-left:10px;border: 1px solid #ccd4d9;padding-right: 30px;">
+                  <p>
+                    <span class="address"><a href="{if $comment_child.link_url != ''}{$comment_child['link_url']}{else}javascript:void(0);{/if}" target="_brank">{$comment_child.name}</a></span>回复<span class="address"><a href="{if $comment_child.reply_link_url != ''}{$comment_child['reply_link_url']}{else}javascript:void(0);{/if}">{$comment_child.reply_name}</a></span>
+                    <span class="time">({$comment_child.time|date="Y-m-d",###})</span>
+                    <span><a href="javascript:void(0);" class="callback" p_id="{$comment_child.id}" top_id="{$comment.id}" reply_name="{$comment_child.name}" reply_link_url="{$comment.link_url}">回复</a></span>
+                  </p>
+                  <p class="comment_comment" style="margin-left: 5px;margin-bottom: 10px;">{$comment_child.comment}</p>
+                </div>
+                </div> 
+              {/volist}
+            {/if}           
+          </li>
+          {/volist}
+        </ol>
+        <div class="loader"><div class="pagination-loading"><div class="loader_img_box" style="display: none;"><img src="/static/index/images/loading.gif"></div></div></div>
+        <div class="quotes">
+          {if $comment_count}
+            {$page}
+            {else}
+            好像还没有人来过
+          {/if}
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="sidebar">
+    <div class="fixed">
+      <div class="widget widget_search">
+        <form class="navbar-form" action="javascript:search();" id="search_form">
+          <div class="input-group">
+            <input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字" maxlength="15" autocomplete="on">
+            <span class="input-group-btn">
+            <button class="btn btn-default btn-search" name="search">搜索</button>
+            </span> </div>
+        </form>
+      </div>
+    </div>
+    <div class="widget widget_sentence">
+        <h3>每日一句</h3>
+        <div class="widget-sentence-content">
+          <h4>{$sentence.time|date="Y年m月d日 H:i:s",###}</h4>
+          <p>{$sentence.other_sentence}<br>
+            {$sentence.sentence}</p>
+        </div>
+      </div>
+    <div class="widget widget_hot" id="article_hot">
+      <h3>热门文章</h3>
+      <ul>
+        {volist name="articles_hot" id="article_hot"}
+        <li>
+          <a href="javascript:void(0);" article="{$article_hot.id}" title="{$article_hot.title}"><span class="thumbnail"><img class="thumb" data-original="{$article_hot.pic_small}" src="{$article_hot.pic_small}" alt="{$article_hot.title}"></span><span class="text">{$article_hot.title}</span><span class="muted"><i class="glyphicon glyphicon-time"></i> {$article_hot.time|date="Y-m-d",###} </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> {$article_hot.click}</span></a>
+        </li>
+        {/volist}
+      </ul>
+    </div>
+  </aside>
+</section>
+</div>

@@ -1,0 +1,83 @@
+<div id="content">
+    <section class="container">
+        <div class="content-wrap">
+            <div class="content">
+                <div class="excerpt-minic excerpt-minic-index" style="padding:0px;height: 700px;">
+                    <div class="excerpt-minic excerpt-minic-index" style="margin: 0px;height: 75%;">
+                        <textarea readonly id="comment-content" cols="30" rows="10" style="width: 100%;height: 100%;resize: none;border: none;"></textarea>
+                    </div>
+                    <div class="excerpt-minic excerpt-minic-index" style="height: 25%;">
+                        <textarea placeholder="说些什么呢~" name="comment" id="comment-textarea" cols="80%" rows="50" tabindex="50" style="height: 80%;margin: 0px;padding: 0px;" ></textarea>
+                        <div class="comment-ctrl">
+                            <div class="comment-prompt"> <i class="fa fa-spin fa-circle-o-notch"></i> <span class="comment-prompt-text"></span> </div>
+                            <button type="submit" id="comment-chat" tabindex="5" articleid="1" style="right: 2px;bottom: 1px;height: 42px;">发送</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <aside class="sidebar">
+            <div class="widget widget_hot" style="height: 700px;overflow: auto;">
+                <div class="widget widget_sentence" id="user_list">
+                    <h3>在线列表</h3>
+                    <!--<div class="widget-sentence-content">-->
+                        <!--<h5>张三</h5>-->
+                    <!--</div>-->
+                    <!--<div class="widget-sentence-content">-->
+                        <!--<h5>张三</h5>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </aside>
+    </section>
+    <div class="container-fluid text-center">
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div id="message" style="display: none;">
+                <div class="alert alert-warning" id="warning">
+                    <a href="#" class="close" data-dismiss="alert">
+                        &times;
+                    </a>
+                    <strong></strong>
+                </div>
+            </div>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">
+                            请写下您的昵称
+                        </h4>
+                    </div>
+                    <input type="text" class="form-control" id="chat_name" placeholder="请输入昵称">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="chat_name_btn">
+                            确定
+                        </button>
+                    </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+    </div>
+</div>
+<script>
+    //检测是否重新连接
+    if (weblink == 1){
+        ws.close();
+    }
+    $('#myModal').modal({backdrop: "static", show: true}); //遮罩
+
+    //多人聊天昵称提交按钮
+    $('#chat_name_btn').on('click',function(){
+        var chat_name = $('#chat_name').val();
+        chat_name = chat_name.replace(/(^\s+)|(\s+$)/g,"");
+        if (!chat_name) {
+            var msg = '昵称一定要填写哦';
+            $('#message strong').text(msg);
+            $('#message').css('display','block');
+            return false;
+        }
+        socket_chat();
+    })
+</script>

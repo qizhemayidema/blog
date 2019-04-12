@@ -1,0 +1,80 @@
+<div class="find_tag_article" style="display: none;">
+	<div class="row">
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+			<div class="widget">
+				<div class="widget-header  with-footer">
+					<span class="widget-caption">标签ID为：【<span id="tag_id">{$tag_id}</span>】的所属文章</span>
+					<div class="widget-buttons">
+						<a href="javascript:void(0)" data-toggle="dispose"><i class="fa fa-times"></i></a>
+					</div>
+				</div>
+				<div class="widget-body">
+					<div class="flip-scroll" id="comment_body">
+						<table class="table table-bordered table-hover">
+							<thead class="">
+								<tr>
+									<th class="text-center" width="4%">ID</th>
+									<th class="text-center">标题</th>
+									<th class="text-center" width="6%">相关推荐</th>
+									<th class="text-center" width="6%">是否轮播</th>
+									<th class="text-center" width="6%">文章图片</th>
+									<th class="text-center" width="6%">所属栏目</th>
+									<th class="text-center" width="6%">点击量</th>
+									<th class="text-center" width="6%">评论数</th>
+									<th class="text-center" width="20%">创建时间</th>
+									<th class="text-center" width="14%">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								{volist name="articles" id="article" empty="暂无数据"}
+								<tr>
+									<td align="center" style=" vertical-align:middle;" style=" vertical-align:middle;">{$article.id}</td>
+									<td align="center" style=" vertical-align:middle;">{$article.title}</td>
+									<td align="center" style=" vertical-align:middle;">{if $article.state == 1}<span style="color: lightgreen;">是</span>{else}<span style="color: red;">否</span>{/if}</td>
+									<td align="center" style=" vertical-align:middle;">{if $article.roll == 1}<span style="color: lightgreen;">是</span>{else}<span style="color: red;">否</span>{/if}</td>
+									<td align="center" style=" vertical-align:middle;"><img src="{$article.pic_small}" style="width: 50px;height: 40px;"></td>
+									<td align="center" style=" vertical-align:middle;">{$article.column_name}</td>
+									<td align="center" style=" vertical-align:middle;">{$article.click}</td>
+									<td align="center" style=" vertical-align:middle;">{$article.comment_count}</td>
+									<td align="center" style=" vertical-align:middle;">{$article.time|date="Y-m-d H:i:s",###}</td>
+									<td align="center" style=" vertical-align:middle;">
+										<a href="javascript:void(0);" class="btn btn-primary btn-sm shiny" onclick="article_edit({$article.id})">
+											<i class="fa fa-edit"></i> 编辑
+										</a>
+										
+										<a href="javascript:void(0);" onclick="article_del({$article.id})" class="btn btn-danger btn-sm shiny">
+											<i class="fa fa-trash-o"></i> 删除
+										</a>
+										<div class="btn-group">
+											<a class="btn btn-primary shiny btn-sm" href="javascript:void(0);">更多</a>
+											<a class="btn btn-primary dropdown-toggle shiny btn-sm" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+											<ul class="dropdown-menu dropdown-primary">
+												<li>
+													<a href="javascript:void(0);" onclick="see_article_comment({$article.id})">查看该文章下的评论</a>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								{/volist}
+							</tbody>
+						</table>
+						<div class="btn-group" style="display:inline-block;margin-top: 10px;float:left;">
+							<span class="input-icon">
+								<input type="text" class="form-control input-sm" id="article_name_input" placeholder="根据文章名/关键字查找" onblur="find_article_name()">
+								<i class="searchicon fa fa-search"></i>
+							</span>
+						</div>
+						<div id="lst_more_button" style="display: none;">
+							<div class="btn-group" style="display:inline-block;margin-top: 10px;margin-left: 10px;float:left;">
+								<a href="javascript:void(0);" class="current btn btn-danger" style="height: 30px;margin-left: 10px;" onclick="article_more_del()">批量删除</a>
+							</div>
+						</div>
+						<div id="article_page" style="text-align:right; margin-top:10px;">{$page}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

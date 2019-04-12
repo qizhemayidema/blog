@@ -1,0 +1,132 @@
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">文章相关</li>
+		<li class="active"><a href="javascript:void(0);" onclick="comment_lst()">文章评论</a></li>
+		<li class="active"><a href="javascript:void(0);">详细评论</a></li>
+	</ul>
+</div>
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+<div class="alert alert-success fade in" id="ok_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-check"></i>
+	<span></span>
+</div>
+
+<div class="page-body" id="page-body">
+
+<button type="button" class="btn btn-sm btn-azure btn-addon">
+	{if !empty($comments)}
+	评论ID为<span>{$comments.id}</span>的详细评论
+	{else}
+	未查到有关评论
+	{/if}
+</button>
+<button type="button" class="btn btn-sm btn-azure btn-addon">
+	{if $article != ''}所属文章：<span>{$article.title}</span>&nbsp;&nbsp;文章ID：<span>{$article.id}</span>{else}未查到有关文章{/if}
+</button>
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="widget">
+			<div class="widget-body">
+				<form id="lst_form" role="form" method="post">
+				<div class="flip-scroll" id="comment_see_body">
+					<table class="table table-bordered table-hover">
+						<thead class="">
+							<tr>
+								<th class="text-center" width="4%">
+									<label style="padding: 0px;margin: 0px;">
+										<input name="lst_form_checkbox_all" value="1" class="colored-black" type="checkbox">
+										<span class="text"></span>
+									</label>
+								</th>
+								<th class="text-center" width="4%">ID</th>
+								<th class="text-center">顶级ID</th>
+								<th class="text-center">昵称</th>
+								<th class="text-center">网址</th>
+								<th class="text-center">回复给(id)</th>
+								<th class="text-center">回复给(昵称)</th>
+								<th class="text-center">评论内容</th>
+								<th class="text-center">评论时间</th>
+								<th class="text-center">屏蔽前评论</th>
+								<th class="text-center">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{if !empty($comments)}
+							<tr>
+								<td align="center" class="lst_form_checkbox">
+									<label style="padding: 0px;margin: 0px;">
+										<input name="lst_form_checkbox_one[]" value="{$comments.id}" class="colored-black" type="checkbox">
+										<span class="text"></span>
+									</label>
+								</td>
+								<td align="center">{$comments.id}</td>
+								<td align="center">{$comments.top_id}</td>
+								<td align="center">{$comments.name}</td>
+								<td align="center">{if $comments.link_url != ''}<a href="{$comments.link_url}" target="_blank">{$comments.link_url}</a>{/if}</td>
+								<td align="center">{$comments.p_id}</td>
+								<td align="center">{$comments.reply_name}</td>
+								<td align="center">{$comments.comment}</td>
+								<td align="center">{$comments.time|date="Y-m-d H:i:s",###}</td>
+								<td align="center">{if $comments.old_comment == ''}<span style="color: lightgreen;">未被屏蔽</span>{else}<span style="color: red;">{$comments.old_comment}</span>{/if}</td>
+								<td align="center">
+									<a href="javascript:void(0);" onclick="comment_black({$comments.id})" class="btn btn-danger btn-sm shiny">
+										<i class="fa fa-trash-o"></i> 屏蔽
+									</a>
+									<a href="javascript:void(0);" onclick="comment_unblack({$comments.id})" class="btn btn-primary btn-sm shiny">
+										<i class="fa fa-mail-reply"></i> 反屏蔽
+									</a>
+								</td>
+							</tr>
+							{if $comments['child'] != ''}
+							{volist name="comments.child" id="comment"}
+							<tr>
+								<td align="center" class="lst_form_checkbox">
+									<label style="padding: 0px;margin: 0px;">
+										<input name="lst_form_checkbox_one[]" value="{$comment.id}" class="colored-black" type="checkbox">
+										<span class="text"></span>
+									</label>
+								</td>
+								<td align="center">{$comment.id}</td>
+								<td align="center">{$comment.top_id}</td>
+								<td align="center">{$comment.name}</td>
+								<td align="center">{if $comment.link_url != ''}<a href="{$comments.link_url}" target="_blank">{$comment.link_url}</a>{/if}</td>
+								<td align="center">{$comment.p_id}</td>
+								<td align="center">{$comment.reply_name}</td>
+								<td align="center">{$comment.comment}</td>
+								<td align="center">{$comment.time|date="Y-m-d H:i:s",###}</td>
+								<td align="center">{if $comment.old_comment == ''}<span style="color: lightgreen;">未被屏蔽</span>{else}<span style="color: red;">{$comment.old_comment}</span>{/if}</td>
+								<td align="center">
+									<a href="javascript:void(0);" onclick="comment_black({$comment.id})" class="btn btn-danger btn-sm shiny">
+										<i class="fa fa-trash-o"></i> 屏蔽
+									</a>
+									<a href="javascript:void(0);" onclick="comment_unblack({$comment.id})" class="btn btn-primary btn-sm shiny">
+										<i class="fa fa-mail-reply"></i> 反屏蔽
+									</a>
+								</td>
+							</tr>
+							{/volist}
+							{/if}
+							{/if}
+						</tbody>
+					</table>
+					<div id="lst_more_button" style="display: none;">
+						<div class="btn-group" style="display:inline-block;margin-top: 10px;margin-left: 10px;float:left;">
+							<a href="javascript:void(0);" class="current btn btn-danger" style="height: 30px;margin-left: 10px;" onclick="comment_more_black()">批量屏蔽</a>
+						</div>
+						<div class="btn-group" style="display:inline-block;margin-top: 10px;margin-left: 10px;float:left;">
+							<a href="javascript:void(0);" class="current btn btn-blue" style="height: 30px;margin-left: 10px;" onclick="comment_more_unblack()">批量反屏蔽</a>
+						</div>
+					</div>
+					<div id="comment_see_page" style="text-align:right; margin-top:38px;"></div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

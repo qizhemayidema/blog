@@ -1,0 +1,37 @@
+<ol class="commentlist">
+  {volist name="comments" id="comment" key="k"}
+  <li class="comment-content" style="border: 1px solid #ccd4d9;margin-bottom: 15px;border-radius: 4px;box-shadow: 0px 1px 0px #888888;">
+
+    <div class="reply" style="margin-left: 30px;">
+      <div class="comment-avatar"><img class="avatar" src="__STATIC__/images/icon.png" alt="{$comment.name}" /></div>
+      <div class="comment-main">
+        <p>
+          <span class="comment-f">#{$comment_count - 5 * $page_count +5 -$k +1}</span>
+          <span class="address"><a href="{if $comment.link_url != ''}{$comment.link_url}{else}javascript:void(0);{/if}" target="_brank">{$comment.name}</a></span>
+          <span class="time">({$comment.time|date="Y-m-d",###})</span>
+          <span><a href="javascript:void(0);" class="callback" p_id="{$comment.id}" top_id="{$comment.id}" reply_name="{$comment.name}" reply_link_url="{$comment.link_url}">回复</a></span>
+        </p>
+        <p class="comment_comment" style="margin-left: 5px;margin-bottom: 10px;">{$comment.comment}</p>
+      </div>
+    </div>
+    {if !empty($comment['child'])}
+      {volist name="comment.child" id="comment_child"}
+        <div class="reply" style="margin-bottom: 20px;">
+        <div class="comment-main" style="padding-left:10px;border: 1px solid #ccd4d9;padding-right: 30px;">
+          <p>
+            <span class="address"><a href="{if $comment_child.link_url != ''}{$comment_child['link_url']}{else}javascript:void(0);{/if}" target="_brank">{$comment_child.name}</a></span>回复<span class="address"><a href="{if $comment_child.reply_link_url != ''}{$comment_child['reply_link_url']}{else}javascript:void(0);{/if}">{$comment_child.reply_name}</a></span>
+            <span class="time">({$comment_child.time|date="Y-m-d",###})</span>
+            <span><a href="javascript:void(0);" class="callback" p_id="{$comment_child.id}" top_id="{$comment.id}" reply_name="{$comment_child.name}" reply_link_url="{$comment.link_url}">回复</a></span>
+          </p>
+          <p class="comment_comment" style="margin-left: 5px;margin-bottom: 10px;">{$comment_child.comment}</p>
+        </div>
+        </div> 
+      {/volist}
+    {/if}           
+  </li>
+  {/volist}
+</ol>
+<div class="loader"><div class="pagination-loading"><div class="loader_img_box" style="display: none;"><img src="/static/index/images/loading.gif"></div></div></div>
+<div class="quotes">
+  {$page}
+</div>

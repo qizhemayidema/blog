@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><!--Head--><head>
+	<meta charset="utf-8">
+	<title>欢迎登陆</title>
+	<meta name="description" content="login page">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!--Basic Styles-->
+	<link href="__STATIC__/css/bootstrap.css" rel="stylesheet">
+	<link href="__STATIC__/css/font-awesome.css" rel="stylesheet">
+	<!--Beyond styles-->
+	<link id="beyond-link" href="__STATIC__/css/beyond.css" rel="stylesheet">
+	<link href="__STATIC__/css/demo.css" rel="stylesheet">
+	<link href="__STATIC__/css/animate.css" rel="stylesheet">
+	<link href="__STATIC__/css/details.css" rel="stylesheet">
+	<script type="text/javascript" src="__STATIC__/js/jquery2_1.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/tip.js"></script>
+
+	<!--<script type="text/javascript" src="__STATIC__/js/gt.js"></script>-->
+	<script src="https://static.geetest.com/static/tools/gt.js"></script>
+
+	<script>
+        $(function () {
+            var handlerEmbed = function (captchaObj) {
+                $("#embed-submit").click(function (e) {
+                    var validate = captchaObj.getValidate();
+                    if (!validate) {
+                        $("#notice")[0].className = "show";
+                        setTimeout(function () {
+                            $("#notice")[0].className = "hide";
+                        }, 2000);
+                        e.preventDefault();
+                    }
+                });
+                // 将验证码加到id为captcha的元素里
+                captchaObj.appendTo("#embed-captcha");
+                captchaObj.onReady(function () {
+                    $("#wait")[0].className = "hide";
+                });
+            };
+            $.ajax({
+                // 获取id，challenge，success（是否启用failback）
+                url: "{:url('admin/login/StartCaptchaServlet')}?t=" + (new Date()).getTime(), // 加随机数防止缓存
+                type: "get",
+                dataType: "json",
+                success: function (data) {
+                    // 使用initGeetest接口
+                    // 参数1：配置参数
+                    // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+                    initGeetest({
+                        gt: data.gt,
+                        challenge: data.challenge,
+                        product: "embed", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                        offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                    }, handlerEmbed);
+                }
+            });
+        })
+	</script>
+</head>
+<!--Head Ends-->
+<!--Body-->
+
+<body>
+	<div class="login-container animated fadeInDown">
+		<form action="{:url('Login/check')}" method="post" id="login">
+			<div class="loginbox bg-white">
+				<div class="loginbox-title">登陆</div>
+				<div class="loginbox-textbox">
+					<input class="form-control" placeholder="用户名" name="username" type="text">
+				</div>
+				<div class="loginbox-textbox">
+					<input class="form-control" placeholder="密码" name="password" type="password">
+				</div>
+				<div class="loginbox-textbox">
+					<div id="embed-captcha" ></div>
+					<p id="wait" class="show">正在加载验证码......</p>
+					<p id="notice" class="hide">请先完成验证</p>
+
+				</div>
+				<input type="hidden" name="__token__" value="{$Request.token}" />
+				<div class="loginbox-submit">
+					<input class="btn btn-primary btn-block" value="Login" type="submit">
+					<div>
+						<span class="tip">
+							
+						</span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

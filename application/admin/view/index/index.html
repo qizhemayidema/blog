@@ -1,0 +1,9 @@
+{extend name="common/base"}
+{block name="title"}
+欢迎登陆 {$Think.session.admin.username}
+{/block}
+{block name="body"}
+<div style="text-align:center; line-height:1000%; font-size:24px;">
+欢迎登陆后台！{$Think.session.admin.username}
+</div>
+{/block}

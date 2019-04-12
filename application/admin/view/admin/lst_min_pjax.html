@@ -1,0 +1,29 @@
+<table class="table table-bordered table-hover">
+	<thead class="">
+		<tr>
+			<th class="text-center" width="4%">ID</th>
+			<th class="text-center">管理员名</th>
+			<th class="text-center" width="14%">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		{volist name="admins" id="admin"}
+		<tr>
+			<td align="center">{$admin.id}</td>
+			<td align="center">{$admin.username}</td>
+			<td align="center" class="admin_lst_act">
+				<a href="javascript:void(0);" onclick="admin_update({$admin.id});" class="btn btn-primary btn-sm shiny"><i class="fa fa-edit"></i> 编辑</a>
+				
+				<a href="javascript:void(0);" class="btn btn-danger btn-sm shiny" onclick="delete_admin({$admin.id})"><i class="fa fa-trash-o"></i> 删除</a>
+			</td>
+		</tr>
+		{/volist}
+	</tbody>
+</table>
+<div class="btn-group" style="display:inline-block;margin-top: 10px;float:left;">
+	<span class="input-icon">
+		<input type="text" class="form-control input-sm" id="admin_name_input" placeholder="根据管理员名查找" onblur="find_admin_name()">
+		<i class="searchicon fa fa-search"></i>
+	</span>
+</div>
+<div id="admin_page" style="text-align:right; margin-top:10px;">{$page}</div>

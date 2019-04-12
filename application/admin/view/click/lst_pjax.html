@@ -1,0 +1,68 @@
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">访问记录</li>
+		<li class="active"><a href="javascript:void(0);">访问量</a></li>
+	</ul>
+</div>
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+<div class="page-body" id="page-body">
+
+<button type="button" class="btn btn-sm btn-azure btn-addon" id="click_add">
+	当前共有<span>{$count}</span>天访问信息
+</button>
+<button type="button" class="btn btn-sm btn-azure btn-addon">
+	访问总量为：{$all_count}
+</button>
+<div class="btn-group">
+	<a class="btn btn-azure dropdown-toggle btn-sm" data-toggle="dropdown">
+		排序 <i class="fa fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-azure">
+		<li>
+			<a href="javascript:void(0);" onclick="click_id_sort('order')">根据ID正序排列</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);" onclick="click_id_sort('sort')">根据ID倒序排列</a>
+		</li>
+	</ul>
+</div>
+
+<div class="btn-group" style="float: right;margin-left: 5px;display: none;" id="click_id_sort">
+	<a class="btn btn-purple btn-sm disabled" href="javascript:void(0);"><span></span> </a>
+	<a class="btn btn-azure btn-sm " href="javascript:void(0);"><i class="fa fa-times "></i></a>
+</div>
+
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="widget">
+			<div class="widget-body">
+				<div class="flip-scroll" id="click_body">
+					<table class="table table-bordered table-hover">
+						<thead class="">
+							<tr>
+								<th class="text-center">ID</th>
+								<th class="text-center">点击量</th>
+								<th class="text-center">日期</th>
+							</tr>
+						</thead>
+						<tbody>
+							{volist name="clicks" id="click"}
+							<tr>
+								<td align="center">{$click.id}</td>
+								<td align="center">{$click.click}</td>
+								<td align="center">{$click.time}</td>
+							</tr>
+							{/volist}
+						</tbody>
+					</table>
+					<div id="click_page" style="text-align:right; margin-top:10px;">{$page}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

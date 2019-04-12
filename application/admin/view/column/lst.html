@@ -1,0 +1,103 @@
+{extend name="common/base"}
+{block name="title"}
+栏目
+{/block}
+{block name="body"}
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">文章相关</li>
+		<li class="active"><a href="javascript:void(0);">栏目(前台导航栏)</a></li>
+	</ul>
+</div>
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+<div class="alert alert-success fade in" id="ok_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-check"></i>
+	<span></span>
+</div>
+
+<div class="page-body" id="page-body">
+
+<button type="button" class="btn btn-sm btn-azure btn-addon" id="column_add"> <i class="fa fa-plus"></i> 
+	添加栏目&nbsp;&nbsp;(当前共有<span>{$count}</span>个栏目)
+</button>
+<div class="btn-group">
+	<a class="btn btn-azure dropdown-toggle btn-sm" data-toggle="dropdown">
+		排序 <i class="fa fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-azure">
+		<li>
+			<a href="javascript:void(0);" onclick="column_id_sort('order')">根据ID正序排列</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);" onclick="column_id_sort('sort')">根据ID倒序排列</a>
+		</li>
+	</ul>
+</div>
+
+<div class="btn-group" style="float: right;margin-left: 5px;display: none;" id="column_tag_sort">
+	<a class="btn btn-purple btn-sm disabled" href="javascript:void(0);"><span></span> </a>
+	<a class="btn btn-azure btn-sm " href="javascript:void(0);"><i class="fa fa-times "></i></a>
+</div>
+
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="widget">
+			<div class="widget-body">
+				<form id="lst_form" role="form" method="post">
+				<div class="flip-scroll" id="column_body">
+					<table class="table table-bordered table-hover">
+						<thead class="">
+							<tr>
+								<th class="text-center" width="4%">ID</th>
+								<th class="text-center">栏目名称</th>
+								<th class="text-center" width="15%">栏目下文章数</th>
+								<th class="text-center" width="7%">前台是否显示</th>
+								<th class="text-center" width="20%">创建时间</th>
+								<th class="text-center" width="260px">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{volist name="columns" id="column"}
+							<tr>
+								<td align="center">{$column.id}</td>
+								<td align="center">{$column.name}</td>
+								<td align="center">{$column.article_count}</td>
+								<td align="center">{if $column.show == '1'}<span style="color: lightgreen;">是</span>{else}<span style="color: red;">否</span> {/if}</td>
+								<td align="center">{$column.time|date="Y-m-d H:i:s",###}</td>
+								<td align="center">
+									<a href="javascript:void(0);" class="btn btn-primary btn-sm shiny" onclick="column_edit({$column.id})">
+										<i class="fa fa-edit"></i> 编辑
+									</a>
+									
+									<a href="javascript:void(0);" onclick="column_del({$column.id})" class="btn btn-danger btn-sm shiny">
+										<i class="fa fa-trash-o"></i> 删除
+									</a>
+								</td>
+							</tr>
+							{/volist}
+						</tbody>
+					</table>
+					<div id="column_page" style="text-align:right; margin-top:10px;">
+						{$page}
+					</div>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+	$(function(){
+		column_tag();
+	})
+</script>
+{/block}

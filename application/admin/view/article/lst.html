@@ -1,0 +1,174 @@
+{extend name="common/base"}
+{block name="title"}
+文章
+{/block}
+{block name="body"}
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">文章相关</li>
+		<li class="active"><a href="javascript:void(0);">文章</a></li>
+	</ul>
+</div>
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+<div class="alert alert-success fade in" id="ok_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-check"></i>
+	<span></span>
+</div>
+
+<div class="page-body" id="page-body">
+
+<button type="button" class="btn btn-sm btn-azure btn-addon" id="article_add"> <i class="fa fa-plus"></i> 
+	添加文章&nbsp;&nbsp;(当前共发布<span>{$count}</span>篇文章)
+</button>
+<div class="btn-group">
+	<a class="btn btn-azure dropdown-toggle btn-sm" data-toggle="dropdown">
+		排序 <i class="fa fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-azure">
+		<li>
+			<a href="javascript:void(0);" onclick="article_id_sort('order')">根据ID正序排列</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);" onclick="article_id_sort('sort')">根据ID倒序排列</a>
+		</li>
+	</ul>
+</div>
+
+<div class="btn-group">
+	<a class="btn btn-azure dropdown-toggle btn-sm" data-toggle="dropdown">
+		查看 <i class="fa fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-azure">
+		<li>
+			<a href="javascript:void(0);" onclick="article_see('state')">相关推荐</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);" onclick="article_see('roll')">轮播文章</a>
+		</li>
+	</ul>
+</div>
+
+<div class="btn-group" id="article_column">
+	<a class="btn btn-azure dropdown-toggle btn-sm" data-toggle="dropdown" onclick="article_column()">
+		栏目 <i class="fa fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-azure">
+		<li>
+			<img class="creator_loading" src="/static/admin/images/loading.png" style="transform: rotate(0deg);">
+		</li>
+	</ul>
+</div>
+<div class="btn-group" style="float: right;margin-left: 5px;display: none;" id="article_tag_column">
+	<a class="btn btn-purple btn-sm disabled" href="javascript:void(0);"><span></span> </a>
+	<a class="btn btn-azure btn-sm " href="javascript:void(0);"><i class="fa fa-times "></i></a>
+</div>
+<div class="btn-group" style="float: right;margin-left: 5px;display: none;" id="article_tag_see">
+	<a class="btn btn-purple btn-sm disabled" href="javascript:void(0);"><span></span> </a>
+	<a class="btn btn-azure btn-sm " href="javascript:void(0);"><i class="fa fa-times "></i></a>
+</div>
+<div class="btn-group" style="float: right;margin-left: 5px;display: none;" id="article_tag_sort">
+	<a class="btn btn-purple btn-sm disabled" href="javascript:void(0);"><span></span> </a>
+	<a class="btn btn-azure btn-sm " href="javascript:void(0);"><i class="fa fa-times "></i></a>
+</div>
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="widget">
+			<div class="widget-body">
+				<form id="lst_form" role="form" method="post">
+				<div class="flip-scroll" id="article_body">
+					<table class="table table-bordered table-hover">
+						<thead class="">
+							<tr>
+								<th class="text-center" width="4%">
+									<label style="padding: 0px;margin: 0px;">
+										<input name="lst_form_checkbox_all" value="1" class="colored-black" type="checkbox">
+										<span class="text"></span>
+									</label>
+								</th>
+								<th class="text-center" width="4%">ID</th>
+								<th class="text-center">标题</th>
+								<th class="text-center" width="6%">相关推荐</th>
+								<th class="text-center" width="6%">是否轮播</th>
+								<th class="text-center" width="6%">文章图片</th>
+								<th class="text-center" width="6%">所属栏目</th>
+								<th class="text-center" width="6%">点击量</th>
+								<th class="text-center" width="6%">评论数</th>
+								<th class="text-center" width="20%">创建时间</th>
+								<th class="text-center" width="14%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{volist name="articles" id="article" empty="暂无数据"}
+							<tr>
+								<td align="center" class="lst_form_checkbox">
+									<label style="padding: 0px;margin: 0px;">
+										<input name="lst_form_checkbox_one[]" value="{$article.id}" class="colored-black" type="checkbox">
+										<span class="text"></span>
+									</label>
+								</td>
+								<td align="center" style=" vertical-align:middle;">{$article.id}</td>
+								<td align="center" style=" vertical-align:middle;">{$article.title}</td>
+								<td align="center" style=" vertical-align:middle;">{if $article.state == 1}<span style="color: lightgreen;">是</span>{else}<span style="color: red;">否</span>{/if}</td>
+								<td align="center" style=" vertical-align:middle;">{if $article.roll == 1}<span style="color: lightgreen;">是</span>{else}<span style="color: red;">否</span>{/if}</td>
+								<td align="center" style=" vertical-align:middle;"><img src="{$article.pic_small}" style="width: 50px;height: 40px;"></td>
+								<td align="center" style=" vertical-align:middle;">{$article.column_name}</td>
+								<td align="center" style=" vertical-align:middle;">{$article.click}</td>
+								<td align="center" style=" vertical-align:middle;">{$article.comment_count}</td>
+								<td align="center" style=" vertical-align:middle;">{$article.time|date="Y-m-d H:i:s",###}</td>
+								<td align="center" style=" vertical-align:middle;">
+									<a href="javascript:void(0);" class="btn btn-primary btn-sm shiny" onclick="article_edit({$article.id})">
+										<i class="fa fa-edit"></i> 编辑
+									</a>
+									
+									<a href="javascript:void(0);" onclick="article_del({$article.id})" class="btn btn-danger btn-sm shiny">
+										<i class="fa fa-trash-o"></i> 删除
+									</a>
+									<div class="btn-group">
+										<a class="btn btn-primary shiny btn-sm" href="javascript:void(0);">更多</a>
+										<a class="btn btn-primary dropdown-toggle shiny btn-sm" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+										<ul class="dropdown-menu dropdown-primary">
+											<li>
+												<a href="javascript:void(0);" onclick="see_article_comment({$article.id})">查看该文章下的评论</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							{/volist}
+						</tbody>
+					</table>
+					<div class="btn-group" style="display:inline-block;margin-top: 10px;float:left;">
+						<span class="input-icon">
+							<input type="text" class="form-control input-sm" id="article_name_input" placeholder="根据文章名/关键字查找" onblur="find_article_name()">
+							<i class="searchicon fa fa-search"></i>
+						</span>
+					</div>
+					<div id="lst_more_button" style="display: none;">
+						<div class="btn-group" style="display:inline-block;margin-top: 10px;margin-left: 10px;float:left;">
+							<a href="javascript:void(0);" class="current btn btn-danger" style="height: 30px;margin-left: 10px;" onclick="article_more_del()">批量删除</a>
+						</div>
+					</div>
+					<div id="article_page" style="text-align:right; margin-top:10px;">
+						{$page}
+					</div>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+	$(function(){
+		article_tag();
+	})
+</script>
+{/block}

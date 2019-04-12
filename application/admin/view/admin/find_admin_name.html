@@ -1,0 +1,42 @@
+<div class="admin_find_name" style="display: none;">
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+			<div class="widget">
+				<div class="widget-header  with-footer">
+					<span class="widget-caption">【{$admin.username}】的搜索结果</span>
+					<div class="widget-buttons">
+						<a href="javascript:void(0)" data-toggle="dispose" class="close"><i class="fa fa-times"></i></a>
+					</div>
+				</div>
+				<div class="widget-body">
+					<div class="flip-scroll">
+						<table class="table table-bordered table-striped table-condensed flip-content">
+							<thead class="flip-content bordered-palegreen">
+								<tr>
+									<th class="text-center" width="4%">ID</th>
+									<th class="text-center">管理员名</th>
+									<th class="text-center" width="14%">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td align="center">{$admin.id}</td>
+									<td align="center">{$admin.username}</td>
+									<td align="center" class="admin_lst_act">
+										<a href="javascript:void(0);" class="btn btn-primary btn-sm shiny" onclick="admin_update({$admin.id})">
+											<i class="fa fa-edit"></i> 编辑
+										</a>
+										
+										<a href="javascript:void(0);" onclick="delete_admin({$admin.id})" class="btn btn-danger btn-sm shiny">
+											<i class="fa fa-trash-o"></i> 删除
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

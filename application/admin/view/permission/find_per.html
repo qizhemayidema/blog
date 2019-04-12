@@ -1,0 +1,173 @@
+<div class="find_per" style="display: none;">
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header  with-footer">
+				<span class="widget-caption">【{$per.name}】的详细信息</span>
+				<div class="widget-buttons">
+					<a href="javascript:void(0)" data-toggle="dispose"><i class="fa fa-times"></i></a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="flip-scroll">
+					<div class="table-scrollable">
+						<table class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th scope="col" style="text-align: center;">模块名称</th>
+									<th scope="col" style="text-align: center;">二级菜单</th>
+									<th scope="col" style="text-align: center;">可见性</th>
+									<th scope="col" style="text-align: center;">增加</th>
+									<th scope="col" style="text-align: center;">修改</th>
+									<th scope="col" style="text-align: center;">删除</th>
+									<th scope="col" style="text-align: center;">此模块权限等级(排序)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td rowspan="4" style="border-right: 1px solid #dddddd;background-color: #ffffff;vertical-align: middle;text-align: center;font-weight: bold; ">管理员模块</td>
+								</tr>
+								<tr>
+									<td align="center">管理员列表</td>
+									<td align="center">{if condition="($per.admin_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.admin_c == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.admin_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.admin_d == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">
+										{volist name="levels" id="lv"}
+										{if condition="($lv['id'] == $per['admin_level_id'])"}
+										{$lv.sort}
+										{/if}
+										{/volist}
+									</td>
+								</tr>
+								 <tr>
+									<td align="center">管理员权限设定</td>
+									<td align="center">{if condition="($per.permission_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.permission_c == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.permission_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.permission_d == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">
+										{volist name="levels" id="lv"}
+										{if condition="($lv['id'] == $per['permission_level_id'])"}
+										{$lv.sort}
+										{/if}
+										{/volist}
+									</td>
+								</tr>
+								<tr>
+									<td align="center">权限级别设定</td>
+									<td align="center">{if condition="($per.level_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.level_c == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.level_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.level_d == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">
+										{volist name="levels" id="lv"}
+										{if condition="($lv['id'] == $per['level_level_id'])"}
+										{$lv.sort}
+										{/if}
+										{/volist}
+									</td>
+								</tr>
+								<tr>
+									<td rowspan="5" style="border-right: 1px solid #dddddd;background-color: #ffffff;vertical-align: middle;text-align: center;font-weight: bold; ">文章相关模块</td>
+								</tr>
+								<tr>
+									<td align="center">文章</td>
+									<td align="center">{if condition="($per.article_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.article_c == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.article_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.article_d == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center"></td>
+								</tr>
+								<tr>
+									<td align="center">栏目(前台导航栏)</td>
+									<td align="center">{if condition="($per.column_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.column_c == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.column_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.column_d == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center"></td>
+								</tr>
+								<tr>
+									<td align="center">TAG</td>
+									<td align="center">{if condition="($per.tag_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.tag_c == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.tag_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.tag_d == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center"></td>
+								</tr>
+								<tr>
+									<td align="center">文章评论</td>
+									<td align="center">{if condition="($per.comment_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">无</td>
+									<td align="center">{if condition="($per.comment_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">无</td>
+									<td align="center"></td>
+								</tr>
+
+								<tr>
+									<td rowspan="3" style="border-right: 1px solid #dddddd;background-color: #ffffff;vertical-align: middle;text-align: center;font-weight: bold; ">访问记录模块</td>
+								</tr>
+								<tr>
+									<td align="center">ip记录</td>
+									<td align="center">{if condition="($per.visit_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">无</td>
+									<td align="center">无</td>
+									<td align="center">无</td>
+									<td align="center"></td>
+								</tr>
+								
+								<tr>
+									<td align="center">访问量</td>
+									<td align="center">{if condition="($per.click_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">无</td>
+									<td align="center">无</td>
+									<td align="center">无</td>
+									<td align="center"></td>
+								</tr>
+
+								<tr>
+									<td rowspan="4" style="border-right: 1px solid #dddddd;background-color: #ffffff;vertical-align: middle;text-align: center;font-weight: bold; ">网站相关模块</td>
+								</tr>
+								<tr>
+									<td align="center">网站公告</td>
+									<td align="center">{if condition="($per.notice_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.notice_c == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.notice_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.notice_d == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center"></td>
+								</tr>
+								<tr>
+									<td align="center">友情链接</td>
+									<td align="center">{if condition="($per.link_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.link_c == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.link_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.link_d == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center"></td>
+								</tr>
+								<tr>
+									<td align="center">每日一句</td>
+									<td align="center">{if condition="($per.sentence_see == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.sentence_c == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.sentence_u == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center">{if condition="($per.sentence_d == 1)"}<span style="color: #5BE852;">是</span>{else/}<span style="color: red;"> ×</span>{/if}</td>
+									<td align="center"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div style="margin-top: 10px;" align="right">
+					权限等级：
+					<select>
+						{volist name="levels" id="lv"}
+						<option>{$lv.name}|{$lv.sort}</option>
+						{/volist}
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>

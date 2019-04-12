@@ -1,0 +1,25 @@
+{extend name="common/base"}
+{block name="title"}
+友情链接
+{/block}
+{block name="column"}
+  <li><a href="javascript:void(0);" column="index">首页</a></li>
+  {volist name="columns" id="column"}
+  <li><a href="javascript:void(0);" column="{$column.id}" title="{$column.name}" >{$column.name}</a></li>
+  {/volist}
+{/block}
+{block name="content"}
+<section class="container container-page">
+  {include file="common/small_column"}
+  <div class="content">
+    <header class="article-header">
+      <h1 class="article-title">友情链接</h1>
+    </header>
+    <ul class="plinks">
+      {volist name="links" id="link" empty="暂无友链，快来互换吧~"}
+      <li><a href="{$link.link_url}" title="{$link.link_name}" target="_blank" rel="nofollow"><img src="{$link.link_ico}" alt="">{$link.link_name}</a></li>
+      {/volist}
+    </ul>
+  </div>
+</section>
+{/block}

@@ -1,0 +1,47 @@
+<div class="level_find_name" style="display: none;">
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+			<div class="widget">
+				<div class="widget-header  with-footer">
+					<span class="widget-caption">【{$level.name}】的搜索结果</span>
+					<div class="widget-buttons">
+						<a href="javascript:void(0)" data-toggle="dispose" class="close"><i class="fa fa-times"></i></a>
+					</div>
+				</div>
+				<div class="widget-body">
+					<div class="flip-scroll">
+						<table class="table table-bordered table-striped table-condensed flip-content">
+						<thead class="flip-content bordered-palegreen">
+							<tr>
+								<th class="text-center" width="5%">ID</th>
+								<th class="text-center" width="11%">级别名称</th>
+								<th class="text-center" width="10%">级别等级</th>
+								<th class="text-center" width="11%">创建者</th>
+								<th class="text-center" width="16%">创建时间</th>
+								<th class="text-center" width="11%">最后修改者</th>
+								<th class="text-center" width="16%">最后修改时间</th>
+								<th class="text-center" width="15%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+								<td align="center">{$level.id}</td>
+								<td align="center">{$level.name}</td>
+								<td align="center">{$level.sort}</td>
+								<td align="center">{$level.creator_name}</td>
+								<td align="center">{$level.create_time|date="Y-m-d H:i:s",###}</td>
+								<td align="center">{$level.reviser_name}</td>
+								<td align="center">{$level.revise_time|date="Y-m-d H:i:s",###}</td>
+								<td align="center" class="level_lst_act">
+									<a href="javascript:void(0);" onclick="level_edit({$level.id})" class="btn btn-primary btn-sm shiny"><i class="fa fa-edit"></i> 编辑</a>
+									
+									<a href="javascript:void(0);" class="btn btn-danger btn-sm shiny" onclick="delete_level({$level.id})"><i class="fa fa-trash-o"></i> 删除</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

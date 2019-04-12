@@ -1,0 +1,140 @@
+{extend name="common/base"}
+{block name="title"}
+网站公告
+{/block}
+{block name="body"}
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">网站相关</li>
+		<li class="active"><a href="javascript:void(0);">网站公告</a></li>
+	</ul>
+</div>
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+<div class="alert alert-success fade in" id="ok_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-check"></i>
+	<span></span>
+</div>
+
+<div class="page-body" id="page-body">
+
+<button type="button" class="btn btn-sm btn-azure btn-addon" id="notice_add"> <i class="fa fa-plus"></i> 
+	添加公告&nbsp;&nbsp;(当前共发布<span>{$count}</span>个公告)
+</button>
+<div class="btn-group">
+	<a class="btn btn-azure dropdown-toggle btn-sm" data-toggle="dropdown">
+		排序 <i class="fa fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-azure">
+		<li>
+			<a href="javascript:void(0);" onclick="notice_id_sort('order')">根据ID正序排列</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);" onclick="notice_id_sort('sort')">根据ID倒序排列</a>
+		</li>
+	</ul>
+</div>
+
+<div class="btn-group">
+	<a class="btn btn-azure dropdown-toggle btn-sm" data-toggle="dropdown">
+		查看 <i class="fa fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-azure">
+		<li>
+			<a href="javascript:void(0);" onclick="notice_sort('show')">前台显示的公告</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);" onclick="notice_sort('top')">置顶的公告</a>
+		</li>
+	</ul>
+</div>
+
+<div class="btn-group" style="float: right;margin-left: 5px;display: none;" id="notice_tag_sort">
+	<a class="btn btn-purple btn-sm disabled" href="javascript:void(0);"><span></span> </a>
+	<a class="btn btn-azure btn-sm " href="javascript:void(0);"><i class="fa fa-times "></i></a>
+</div>
+
+<div class="btn-group" style="float: right;margin-left: 5px;display: none;" id="notice_tag_see">
+	<a class="btn btn-purple btn-sm disabled" href="javascript:void(0);"><span></span> </a>
+	<a class="btn btn-azure btn-sm " href="javascript:void(0);"><i class="fa fa-times "></i></a>
+</div>
+
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="widget">
+			<div class="widget-body">
+				<form id="lst_form" role="form" method="post">
+				<div class="flip-scroll" id="notice_body">
+					<table class="table table-bordered table-hover">
+						<thead class="">
+							<tr>
+								<th class="text-center" width="4%">
+									<label style="padding: 0px;margin: 0px;">
+										<input name="lst_form_checkbox_all" value="1" class="colored-black" type="checkbox">
+										<span class="text"></span>
+									</label>
+								</th>
+								<th class="text-center" width="4%">ID</th>
+								<th class="text-center">公告内容</th>
+								<th class="text-center" width="6%">是否显示</th>
+								<th class="text-center" width="6%">是否置顶</th>
+								<th class="text-center" width="20%">创建时间</th>
+								<th class="text-center" width="14%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{volist name="notices" id="notice"}
+							<tr>
+								<td align="center" class="lst_form_checkbox">
+									<label style="padding: 0px;margin: 0px;">
+										<input name="lst_form_checkbox_one[]" value="{$notice.id}" class="colored-black" type="checkbox">
+										<span class="text"></span>
+									</label>
+								</td>
+								<td align="center">{$notice.id}</td>
+								<td align="center">{$notice.text}</td>
+								<td align="center">{if ($notice['show'] == 1)}<span style="color:lightgreen;">是</span> {else}<span style="color:red;">否</span>{/if}</td>
+								<td align="center">{if ($notice['top'] == 1)}<span style="color:lightgreen;">是</span> {else}<span style="color:red;">否</span>{/if}</td>
+								<td align="center">{$notice.time|date="Y-m-d H:i:s",###}</td>
+								<td align="center">
+									<a href="javascript:void(0);" class="btn btn-primary btn-sm shiny" onclick="notice_edit({$notice.id})">
+										<i class="fa fa-edit"></i> 编辑
+									</a>
+									
+									<a href="javascript:void(0);" onclick="notice_del({$notice.id})" class="btn btn-danger btn-sm shiny">
+										<i class="fa fa-trash-o"></i> 删除
+									</a>
+									
+								</td>
+							</tr>
+							{/volist}
+						</tbody>
+					</table>
+					<div id="lst_more_button" style="display: none;">
+						<div class="btn-group" style="display:inline-block;margin-top: 10px;margin-left: 10px;float:left;">
+							<a href="javascript:void(0);" class="current btn btn-danger" style="height: 30px;margin-left: 10px;" onclick="notice_more_del()">批量删除</a>
+						</div>
+					</div>
+					<div id="notice_page" style="text-align:right; margin-top:10px;">
+						{$page}
+					</div>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{/block}
+{block name="js"}
+<script type="text/javascript">
+	$(function(){
+		notice_tag();
+	})
+</script>
+{/block}

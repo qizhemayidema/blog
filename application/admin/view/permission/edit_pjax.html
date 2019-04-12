@@ -1,0 +1,366 @@
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">管理员</li>
+		<li class="active"><a href="javascript:void(0);" onclick="permission_lst()">管理员权限设定</a></li>
+		<li class="active"><a href="javascript:void(0);">编辑管理员权限</a></li>
+	</ul>
+</div>
+
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+
+<div class="alert alert-info fade in" id="tip_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-info"></i>
+	<span></span>
+	<button class="btn btn-palegreen btn-xs" onclick="permission_edit_move_creator()">确定</button>
+</div>
+
+<div class="alert alert-success fade in" id="ok_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-check"></i>
+	<span></span>
+</div>
+
+<div class="page-body" id="page-body">
+
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="widget">
+			<div class="widget-header bordered-bottom bordered-blue">
+				<span class="widget-caption">编辑管理员权限</span>
+			</div>
+			<div class="widget-body">
+				<div id="horizontal-form">
+					<form class="form-horizontal" role="form" method="post" id="permission_from_edit">
+						<input type="hidden" name="id" value="{$per.id}">
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">权限名称</label>
+							<div class="col-sm-6">
+								<input class="form-control" placeholder="" name="name" type="text" value="{$per.name}">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right"><h2>管理员模块</h2></label>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">管理员列表模块</label>
+							<div class="col-sm-6">
+								
+								<label>
+									<input name="admin_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.admin_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="admin_c" class="colored-blue" value="1" type="checkbox" {if condition="($per.admin_c == 1)"} checked="checked"{/if}>
+									<span class="text">添加权限&nbsp;&nbsp;</span>
+								</label>
+								
+								<label>
+									<input name="admin_u" class="colored-blue" value="1" type="checkbox" {if condition="($per.admin_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="admin_d" class="colored-blue" value="1" type="checkbox" {if condition="($per.admin_d == 1)"} checked="checked"{/if}>
+									<span class="text">删除权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<select name="admin_level_id">
+									{volist name="lvs" id="lv"}    
+										<option value="{$lv.id}" {if condition="($per.admin_level_id == $lv.id)"} selected="selected"{/if}>{$lv.name}|{$lv.sort}</option>
+									{/volist}
+									</select>
+									<span class="text">此模块可操作级别（只能控制编辑、删除操作）</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red">* 模块操作级别只能设定低于自己的级别</p>
+						</div>
+
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">管理员权限设定模块</label>
+								<div class="col-sm-6">
+								<label style="margin-top:3px;">
+									<input name="permission_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.permission_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+								
+								<label style="margin-top:3px;">
+									<input name="permission_c" value="1" class="colored-blue" type="checkbox" {if condition="($per.permission_c == 1)"} checked="checked"{/if}>
+									<span class="text">添加权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label style="margin-top:3px;">
+									<input name="permission_u" value="1" class="colored-blue" type="checkbox" {if condition="($per.permission_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label style="margin-top:3px;">
+									<input name="permission_d" value="1" class="colored-blue" type="checkbox" {if condition="($per.permission_d == 1)"} checked="checked"{/if}>
+									<span class="text">删除权限&nbsp;&nbsp;</span>
+								</label>
+
+							  
+								<select name="permission_level_id">
+								{volist name="lvs" id="lv"}    
+									<option value="{$lv.id}" {if condition="($per.permission_level_id == $lv.id)"} selected="selected"{/if}>{$lv.name}|{$lv.sort}</option>
+								{/volist}
+								</select>
+								<span class="text">此模块可操作级别（只能控制编辑、删除操作）</span>
+							</div>
+								<p class="help-block col-sm-4 red">* 模块操作级别只能设定低于自己的级别，如果此模块设为拥有可见性，则默认权限级别模块也拥有可见性</p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">权限级别模块</label>
+								<div class="col-sm-6">
+								<label>
+									<input name="level_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.level_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+								
+								<label>
+									<input name="level_c" value="1" class="colored-blue" type="checkbox" {if condition="($per.level_c == 1)"} checked="checked"{/if}>
+									<span class="text">添加权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="level_u" value="1" class="colored-blue" type="checkbox" {if condition="($per.level_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="level_d" value="1" class="colored-blue" type="checkbox" {if condition="($per.level_d == 1)"} checked="checked"{/if}>
+									<span class="text">删除权限&nbsp;&nbsp;</span>
+								</label>
+
+							  
+								<select name="level_level_id">
+								{volist name="lvs" id="lv"}    
+									<option value="{$lv.id}" {if condition="($per.level_level_id == $lv.id)"} selected="selected"{/if}>{$lv.name}|{$lv.sort}</option>
+								{/volist}
+								</select>
+								<span class="text">此模块可操作级别（控制添加、编辑、删除操作）</span>
+							</div>
+								<p class="help-block col-sm-4 red">* 模块操作级别只能设定低于自己的级别</p>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right"><h2>文章相关模块</h2></label>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">文章模块</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="article_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.article_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="article_c" class="colored-blue" value="1" type="checkbox" {if condition="($per.article_c == 1)"} checked="checked"{/if}>
+									<span class="text">添加权限&nbsp;&nbsp;</span>
+								</label>
+								
+								<label>
+									<input name="article_u" class="colored-blue" value="1" type="checkbox" {if condition="($per.article_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="article_d" class="colored-blue" value="1" type="checkbox" {if condition="($per.article_d == 1)"} checked="checked"{/if}>
+									<span class="text">删除权限&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red">* 如果您选中此模块的可见性，则默认栏目模块、TAG模块、文章评论模块同样拥有可见性</p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">栏目模块</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="column_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.column_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="column_c" class="colored-blue" value="1" type="checkbox" {if condition="($per.column_c == 1)"} checked="checked"{/if}>
+									<span class="text">添加权限&nbsp;&nbsp;</span>
+								</label>
+								
+								<label>
+									<input name="column_u" class="colored-blue" value="1" type="checkbox" {if condition="($per.column_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="column_d" class="colored-blue" value="1" type="checkbox" {if condition="($per.column_d == 1)"} checked="checked"{/if}>
+									<span class="text">删除权限&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">TAG模块</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="tag_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.tag_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="tag_c" class="colored-blue" value="1" type="checkbox" {if condition="($per.tag_c == 1)"} checked="checked"{/if}>
+									<span class="text">添加权限&nbsp;&nbsp;</span>
+								</label>
+								
+								<label>
+									<input name="tag_u" class="colored-blue" value="1" type="checkbox" {if condition="($per.tag_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="tag_d" class="colored-blue" value="1" type="checkbox" {if condition="($per.tag_d == 1)"} checked="checked"{/if}>
+									<span class="text">删除权限&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">文章评论模块</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="comment_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.comment_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+								<label>
+									<input name="comment_u" class="colored-blue" value="1" type="checkbox" {if condition="($per.comment_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;（屏蔽与反屏蔽）</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						<hr>
+
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right"><h2>访问记录模块</h2></label>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">ip记录模块</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="visit_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.visit_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">访问量模块</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="click_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.click_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+
+						<hr>
+
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right"><h2>网站相关模块</h2></label>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">网站公告模块</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="notice_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.notice_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="notice_c" class="colored-blue" value="1" type="checkbox" {if condition="($per.notice_c == 1)"} checked="checked"{/if}>
+									<span class="text">添加权限&nbsp;&nbsp;</span>
+								</label>
+								
+								<label>
+									<input name="notice_u" class="colored-blue" value="1" type="checkbox" {if condition="($per.notice_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="notice_d" class="colored-blue" value="1" type="checkbox" {if condition="($per.notice_d == 1)"} checked="checked"{/if}>
+									<span class="text">删除权限&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">友情链接模块</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="link_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.link_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="link_c" class="colored-blue" value="1" type="checkbox" {if condition="($per.link_c == 1)"} checked="checked"{/if}>
+									<span class="text">添加权限&nbsp;&nbsp;</span>
+								</label>
+								
+								<label>
+									<input name="link_u" class="colored-blue" value="1" type="checkbox" {if condition="($per.link_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="link_d" class="colored-blue" value="1" type="checkbox" {if condition="($per.link_d == 1)"} checked="checked"{/if}>
+									<span class="text">删除权限&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label no-padding-right">每日一句模块</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="sentence_see" value="1" class="checkbox-slider colored-blue" type="checkbox" {if condition="($per.sentence_see == 1)"} checked="checked"{/if}>
+									<span class="text">&nbsp;&nbsp;模块可见性&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="sentence_c" class="colored-blue" value="1" type="checkbox" {if condition="($per.sentence_c == 1)"} checked="checked"{/if}>
+									<span class="text">添加权限&nbsp;&nbsp;</span>
+								</label>
+								
+								<label>
+									<input name="sentence_u" class="colored-blue" value="1" type="checkbox" {if condition="($per.sentence_u == 1)"} checked="checked"{/if}>
+									<span class="text">编辑权限&nbsp;&nbsp;</span>
+								</label>
+
+								<label>
+									<input name="sentence_d" class="colored-blue" value="1" type="checkbox" {if condition="($per.sentence_d == 1)"} checked="checked"{/if}>
+									<span class="text">删除权限&nbsp;&nbsp;</span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						{:token()}
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<a href="javascript:void(0);" class="btn btn-defalut">提交</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>

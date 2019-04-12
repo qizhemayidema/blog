@@ -1,0 +1,39 @@
+<div class="page-body" id="level_move" style="display: none;">
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="widget">
+			<div class="widget-header bordered-bottom bordered-blue">
+				<span class="widget-caption">转移权限的创建者</span>
+				<button class="close" style="width: 35px;height: 30px;">×</button>
+			</div>
+			<div class="widget-body">
+				<div id="horizontal-form">
+					<form class="form-horizontal" role="form" method="post" id="level_move_form">
+							{volist name="moves" id="move"}
+							<div class="form-group">
+								<label class="col-sm-4 control-label no-padding-right">【{$move.level_name}】创建者转移到</label>
+								<div class="col-sm-8">
+									<select name="level_moves_creator[{$move.level_id}]">
+										{volist name="move.move_user" id="user"}
+										<option value="{$user.id}">{$user.username}</option>
+										{/volist}
+									</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;管理员下&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="javascript:void(0);" class="btn-blue" style="padding: 8px;color: white;text-decoration:none;display: inline-block;" onclick="level_move_creator_find_level({$move.level_id})">查看该级别的详细信息</a>
+								</div>
+								<p class="help-block col-sm-4 "></p>
+							</div>
+							{/volist}
+							<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-10">
+								<a href="javascript:void(0);" class="btn btn-defalut  ">转移</a>
+							</div>
+						</div>
+							{:token()}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

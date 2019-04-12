@@ -1,0 +1,77 @@
+{extend name="common/base"}
+{block name="title"}
+标签：{if !empty($tag)}{$tag.name}{/if}
+{/block}
+{block name="column"}
+  <li><a href="javascript:void(0);" column="index">首页</a></li>
+  {volist name="columns" id="column"}
+  <li><a href="javascript:void(0);" column="{$column.id}" title="{$column.name}" >{$column.name}</a></li>
+  {/volist}
+{/block}
+{block name="content"}
+<section class="container">
+  <div class="content-wrap">
+    <div class="content">
+      <div class="title">
+        <h3>{if !empty($tag)}【{$tag.name}】共有{$tag.article_count}篇文章{/if}</h3>
+      </div>
+      <div id="article_lst">
+      {volist name="articles" id="article"}
+      <article class="excerpt excerpt"><a class="focus" href="javascript:void(0);" article="{$article.id}" title="{$article.title}"><img class="thumb" data-original="{$article.pic_small}" src="{$article.pic_small}" alt="{$article.title}"></a>
+        <header><a class="cat" href="javascript:void(0);" column="{$article.column_id}">{$article.column_name}<i></i></a>
+          <h2><a href="javascript:void(0);" article="{$article.id}" title="{$article.title}" title="{$article.title}">{$article.title}</a></h2>
+        </header>
+        <p class="meta">
+          <time class="time"><i class="glyphicon glyphicon-time"></i> {$article.time|date="Y-m-d H:i:s",###}</time>
+          <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共{$article.click}人围观</span> <a class="comment" href="javascript:void(0);"><i class="glyphicon glyphicon-comment"></i> {$article.comment_count}个不明物体</a></p>
+        <p class="note">{$article.desc}</p>
+      </article>
+      {/volist}
+      </div>
+      <div class="loader">
+        <div class="pagination-loading">
+          <div class="loader_img_box" style="display: none;">
+            <img src="__STATIC__/images/loading.gif">
+          </div>
+        </div>
+      </div>
+      <div id="more_article">
+        <div class="pagination">
+          {if count($articles) >= 5}<button class="btn btn-default btn-search" tag="{$tag.id}">查看更多</button>{/if}
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="sidebar">
+    <div class="fixed">
+      <div class="widget widget_search">
+        <form class="navbar-form" action="javascript:search();" id="search_form">
+          <div class="input-group">
+            <input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字" maxlength="15" autocomplete="on">
+            <span class="input-group-btn">
+            <button class="btn btn-default btn-search" name="search">搜索</button>
+            </span> </div>
+        </form>
+      </div>
+      <div class="widget widget_sentence">
+        <h3>每日一句</h3>
+        <div class="widget-sentence-content">
+          <h4>{$sentence.time|date="Y年m月d日 H:i:s",###}</h4>
+          <p>{$sentence.other_sentence}<br>
+            {$sentence.sentence}</p>
+        </div>
+      </div>
+    </div>
+    <div class="widget widget_hot" id="article_hot">
+      <h3>热门文章</h3>
+      <ul>
+        {volist name="articles_hot" id="article_hot"}
+        <li>
+          <a href="javascript:void(0);" article="{$article_hot.id}" title="{$article_hot.title}"><span class="thumbnail"><img class="thumb" data-original="{$article_hot.pic_small}" src="{$article_hot.pic_small}" alt="{$article_hot.title}"></span><span class="text">{$article_hot.title}</span><span class="muted"><i class="glyphicon glyphicon-time"></i> {$article_hot.time|date="Y-m-d",###} </span><span class="muted"><i class="glyphicon glyphicon-eye-open"></i> {$article_hot.click}</span></a>
+        </li>
+        {/volist}
+      </ul>
+    </div>
+  </aside>
+</section>
+{/block}

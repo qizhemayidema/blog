@@ -1,0 +1,60 @@
+<div class="comment_lst_find" style="display: none;">
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header  with-footer">
+				<span class="widget-caption">【{$str}】ID的文章评论</span>
+				<div class="widget-buttons">
+					<a href="javascript:void(0)" data-toggle="dispose"><i class="fa fa-times"></i></a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="flip-scroll">
+					<table class="table table-bordered table-hover">
+						<thead class="">
+							<tr>
+								<th class="text-center">ID</th>
+								<th class="text-center">评论昵称</th>
+								<th class="text-center">评论内容</th>
+								<th class="text-center">评论时间</th>
+								<th class="text-center">是否有子评论</th>
+								<th class="text-center">是否屏蔽</th>
+								<th class="text-center">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{volist name="comments" id="comment"}
+							<tr>
+								<td align="center">{$comment.id}</td>
+								<td align="center">{$comment.name}</td>
+								<td align="center">{$comment.comment}</td>
+								<td align="center">{$comment.time|date="Y-m-d H:i:s",###}</td>
+								<td align="center">{if !empty($comment['child'])}<span style="color: lightgreen;">有</span>{/if}</td>
+								<td align="center">{if $comment.old_comment != ''}<span style="color: red;">已屏蔽</span>{/if}</td>
+								<td align="center">
+									<a href="javascript:void(0);" onclick="comment_see({$comment.id})" class="btn btn-primary btn-sm shiny">
+										<i class="fa fa-align-left"></i> 查看
+									</a>
+									<a href="javascript:void(0);" onclick="comment_black({$comment.id})" class="btn btn-danger btn-sm shiny">
+										<i class="fa fa-trash-o"></i> 屏蔽
+									</a>
+									<div class="btn-group">
+										<a class="btn btn-primary shiny btn-sm" href="javascript:void(0);">更多</a>
+										<a class="btn btn-primary dropdown-toggle shiny btn-sm" data-toggle="dropdown" href="javascript:void(0);" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
+										<ul class="dropdown-menu dropdown-primary">
+											<li>
+												<a href="javascript:void(0);" onclick="comment_unblack({$comment.id})">反屏蔽</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							{/volist}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

@@ -1,0 +1,68 @@
+{extend name="common/base"}
+{block name="title"}
+添加栏目
+{/block}
+{block name="body"}
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">文章相关</li>
+		<li class="active"><a href="javascript:void(0);" onclick="column_lst()">栏目(前台导航栏)</a></li>
+		<li class="active"><a href="javascript:void(0);">添加栏目</a></li>
+	</ul>
+</div>
+
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+
+<div class="alert alert-success fade in" id="ok_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-check"></i>
+	<span></span>
+</div>
+
+<div class="page-body" id="page-body">
+
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12 ">
+		<div class="widget">
+			<div class="widget-header bordered-bottom bordered-blue">
+				<span class="widget-caption">添加栏目</span>
+			</div>
+			<div class="widget-body">
+				<div id="horizontal-form">
+					<form class="form-horizontal" role="form"  method="post" id="column_from_add">
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">栏目名称</label>
+							<div class="col-sm-6">
+								<input class="form-control" placeholder="" name="name" value=""  type="text" style="width: 350px;">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">前台是否显示</label>
+							<div class="col-sm-6">
+								<label style="margin-top:5px;">
+									<input name="show" value="1" class="checkbox-slider colored-blue" type="checkbox">
+									<span class="text"></span>
+								</label>
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						{:token()}
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<a href="javascript:void(0);" class="btn btn-defalut  ">新增</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{/block}

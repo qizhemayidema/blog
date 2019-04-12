@@ -1,0 +1,40 @@
+<table class="table table-bordered table-hover">
+	<thead class="">
+		<tr>
+			<th class="text-center">ID</th>
+			<th class="text-center">IP</th>
+			<th class="text-center">国家</th>
+			<th class="text-center">城市</th>
+			<th class="text-center">操作系统</th>
+			<th class="text-center">分辨率</th>
+			<th class="text-center">语言</th>
+			<th class="text-center">网络供应商</th>
+			<th class="text-center">线路</th>
+			<th class="text-center">经度</th>
+			<th class="text-center">纬度</th>
+			<th class="text-center">时区</th>
+			<th class="text-center">记录时间</th>
+		</tr>
+	</thead>
+	<tbody>
+		{volist name="visits" id="visit"}
+		<tr>
+			<td align="center">{$visit.id}</td>
+			<td align="center">{$visit.ip}</td>
+			<td align="center">{$visit.country}</td>
+			<td align="center">{$visit.city}</td>
+			<td align="center">{$visit.os}</td>
+			<td align="center">{$visit.px}</td>
+			<td align="center">{$visit.code}</td>
+			<td align="center">{$visit.isp}</td>
+			<td align="center">{$visit.as}</td>
+			<td align="center">{$visit.lon}</td>
+			<td align="center">{$visit.lat}</td>
+			<td align="center">{$visit.timezone}</td>
+			<td align="center">{$visit.time|date="Y-m-d H:i:s",###}</td>
+		</tr>
+		{/volist}
+	</tbody>
+</table>
+<div id="visit_page" style="text-align:right; margin-top:10px;">{$page}</div>
+</div>

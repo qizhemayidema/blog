@@ -1,0 +1,80 @@
+<div class="page-breadcrumbs">
+	<ul class="breadcrumb">
+		<li class="active">管理员</li>
+		<li class="active"><a href="javascript:void(0);" onclick="admin_lst()">管理员列表</a></li>
+		<li class="active"><a href="javascipt:void(0);">新增管理员账号</a></li>
+	</ul>
+</div>
+
+<div class="alert alert-warning fade in" id="error_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-warning"></i>
+	<span></span>
+</div>
+
+<div class="alert alert-success fade in" id="ok_msg" style="display: none;">
+	<button class="close">×</button>
+	<i class="fa-fw fa fa-check"></i>
+	<span></span>
+</div>
+
+<div class="page-body" id="page-body">
+
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12 ">
+		<div class="widget">
+			<div class="widget-header bordered-bottom bordered-blue">
+				<span class="widget-caption">新增管理员账号</span>
+			</div>
+			<div class="widget-body">
+				<div id="horizontal-form">
+					<form class="form-horizontal" role="form"  method="post" id="admin_from_add" enctype="multipart/form-data">
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">管理员名</label>
+							<div class="col-sm-6">
+								<input class="form-control" id="username" placeholder="" name="username" value=""  type="text">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填 注意：此管理员名一经确认，之后再也不能更改！</p>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">管理员密码</label>
+							<div class="col-sm-6">
+								<input class="form-control" id="password" placeholder="" name="password"  type="password">
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">头像</label>
+							<div class="col-sm-6">
+								<input id="dpic" name="dpic" style="display:inline;" type="file">
+									
+									<img src="" height="50">
+							</div>
+							<p class="help-block col-sm-4 red"></p>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">管理员权限分配</label>
+							<div class="col-sm-6">
+								<select name="permission_id">
+									{volist name="permission" id="per"}
+									<option  value="{$per.id}">{$per.name}</option>
+									{/volist}
+								</select>
+								<a href="javascript:void(0);" class="btn-blue" style="padding: 8px;color: white;text-decoration:none;display: inline-block;" onclick="admin_now_per()">查看当前选中权限的详细信息</a>
+							</div>
+							<p class="help-block col-sm-4 red">* 必填</p>
+						</div>
+						{:token()}
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<a href="javascript:void(0);" class="btn btn-defalut  ">新增</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
